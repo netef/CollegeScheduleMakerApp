@@ -16,7 +16,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".CreateNewCourse"></activity>
+        <activity android:name=".CreateNewCourse" />
+        <activity android:name=".CreateSlots"></activity>
     </application>
 
 </manifest>

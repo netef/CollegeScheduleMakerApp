@@ -1,14 +1,12 @@
 package com.example.netef.oshriandnetef.Classes;
 
-
-import javafx.event.Event;
-
-public class MyActionEvent extends Event {
+public class MyActionEvent {
     private static final long serialVersionUID = 1L;
     private String message;
+    private Object source;
 
     public MyActionEvent(Object source, String message) {
-        super(source, null, null);
+        this.source = source;
         this.message = message;
 
     }
@@ -16,5 +14,9 @@ public class MyActionEvent extends Event {
     // get the message
     public String getMsg() {
         return message;
+    }
+
+    public Object getSource() {
+        return source;
     }
 }

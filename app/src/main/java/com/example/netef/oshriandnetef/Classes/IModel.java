@@ -2,10 +2,8 @@ package com.example.netef.oshriandnetef.Classes;
 
 import java.util.ArrayList;
 
-import javafx.event.EventHandler;
-
 public interface IModel {
-    void registerListener(EventHandler<MyActionEvent> e);
+    void registerListener(Controller e);
 
     void createNewCourse(String[] courseInput);
 

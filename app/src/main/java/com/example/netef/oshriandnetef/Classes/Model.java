@@ -1,11 +1,7 @@
 package com.example.netef.oshriandnetef.Classes;
 
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Map;
-import java.util.Map.Entry;
+import android.app.Activity;
 
 import com.example.netef.oshriandnetef.exceptions.CourseCodeAlreadyExistException;
 import com.example.netef.oshriandnetef.exceptions.CourseNameAlreadyExistException;
@@ -14,11 +10,15 @@ import com.example.netef.oshriandnetef.exceptions.RoomFullException;
 import com.example.netef.oshriandnetef.exceptions.TeacherTeachingException;
 import com.example.netef.oshriandnetef.exceptions.courseNotExistException;
 
-import javafx.event.EventHandler;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Map;
+import java.util.Map.Entry;
 
-public class Model implements IModel {
+public class Model extends Activity implements IModel {
 
-    private ArrayList<EventHandler<MyActionEvent>> listeners = new ArrayList<>();
+    private ArrayList<Controller> listeners = new ArrayList<>();
     private AllCourses allCourses = new AllCourses();
     private Schedule schedule = new Schedule();
     private ArrayList<Course> impossibleCoursesByCourseTiming = new ArrayList<>();
@@ -83,7 +83,7 @@ public class Model implements IModel {
     }
 
     @Override
-    public void registerListener(EventHandler<MyActionEvent> e) {
+    public void registerListener(Controller e) {
         listeners.add(e);
 
     }
@@ -162,7 +162,7 @@ public class Model implements IModel {
     }
 
     private void invokeListeners(String command) {
-        for (EventHandler<MyActionEvent> listener : listeners) {
+        for (Controller listener : listeners) {
             listener.handle(new MyActionEvent(this, command));
         }
     }

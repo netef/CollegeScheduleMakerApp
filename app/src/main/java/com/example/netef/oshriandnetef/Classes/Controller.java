@@ -1,9 +1,8 @@
 package com.example.netef.oshriandnetef.Classes;
 
 import com.example.netef.oshriandnetef.Tests.TestScheduleInsert;
-import android.app.Activity;
 
-public class Controller implements EventHandler<MyActionEvent> {
+public class Controller implements IController {
     // all finals that will references to comands from model and viewers
     public static final String CREATE_COURSE_VIEWER = "button create course invoked";
     public static final String DONE_CREATE_ALL_COURSES_VIEWER = "button Done create all course invoked";
@@ -137,7 +136,7 @@ public class Controller implements EventHandler<MyActionEvent> {
         model.createNewCourse(source.getCourseInput());
     }
 
-    public void addViewer(Activity viewer) {
+    public void addViewer(IView viewer) {
         this.viewer = viewer;
 
     }

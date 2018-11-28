@@ -1,10 +1,10 @@
 package com.example.netef.oshriandnetef.Classes;
 
+import android.widget.CheckBox;
 import java.util.HashSet;
 
-import javafx.scene.control.CheckBox;
-
 public class CourseCheckBox extends CheckBox implements ICourse {
+
     private int showCode;
     private int courseCode;
     private String name;

@@ -4,66 +4,48 @@ package com.example.netef.oshriandnetef.Classes;
 import java.util.ArrayList;
 
 public interface IView {
+    //maybe remove
+    Node createNewShowPane(int courseCode);
+    Node courseMenuPane();
 
-    public Node createNewShowPane(int courseCode);
 
-    public Node createNewCoursePane();
+    //1
+    Node createNewCoursePane();
+    void scheduleMakerPane(ICourse[] coursesName);
+    //2
+    Node createNewSlotPane(int amountOfSlots);
+    void courseCodeException();
 
-    public Node createNewSlotPane(int amountOfSlots);
+    void courseNameException();
 
-    public void setMainPane(Node p);
+    int getCreatingCourseCode();
+    String[] getCourseInput();
 
-    public int getNumberOfSlots();
-
-    public Node courseMenuPane();
-
-    public String[] getCourseInput();
-
-    public String[] getShowInput();
-
-    public void courseCodeException();
-
-    public void courseNameException();
-
-    public int getCreatingCourseCode();
-
-    public String[][] getSlotsInput();
-
-    public void slotTimingException(int slotNumber);
-
-    public void roomFullException(int slotNumber);
-
-    public void teacherTeachingException(int slotNumber);
-
-    public void roomInputIsntAint(int slotNumber);
-
-    public void scheduleMakerPane(ICourse[] coursesName);
-
-    void changeColumnToDeactiveColor(int coulmn);
-
+    String[] getShowInput();
+    //3
+    void setMainPane(Node p);
+    String[][] getSlotsInput();
+    void slotTimingException(int slotNumber);
+    void roomFullException(int slotNumber);
+    void teacherTeachingException(int slotNumber);
+    void roomInputIsntAint(int slotNumber);
+    int getNumberOfSlots();
+    //4
     int getInvokingDayNumber();
-
-    void changeColumnToActiveColor(int coulmn);
-
     CourseCheckBox getInvokingCourseCheckboxes();
-
-    public void addSlotTOschedule(ISlot[] iSlots);
-
-    public void removeSlotFromschedule(ISlot[] inokedSlots);
-
-    public void disableAndEnableCoursesCB(ArrayList<ICourse> impossibleCourses);
-
-    public void disableCoursesCBByDay(ArrayList<ICourse> impossibleCourses, int invokingDayNumber);
-
-    public void ableCoursesCBByDay(ArrayList<ICourse> impossibleCourses, int invokingDayNumber);
-
+    void disableCoursesCBByDay(ArrayList<ICourse> impossibleCourses, int invokingDayNumber);
+    void ableCoursesCBByDay(ArrayList<ICourse> impossibleCourses, int invokingDayNumber);
+    void disableCoursesCBByHour(ArrayList<ICourse> impossibleCourses);
+    void ableCoursesCBByHour(ArrayList<ICourse> impossibleCourses);
+    void deactiveCollorButton(ScheduleButton button);
+    void disableAndEnableCoursesCB(ArrayList<ICourse> impossibleCourses);
+    void addSlotTOschedule(ISlot[] iSlots);
+    void removeSlotFromschedule(ISlot[] inokedSlots);
+    void changeColumnToDeactiveColor(int coulmn);
+    void changeColumnToActiveColor(int coulmn);
     IHour getButtonInvoke();
 
-    public void deactiveCollorButton(ScheduleButton button);
 
-    public void disableCoursesCBByHour(ArrayList<ICourse> impossibleCourses);
-
-    public void ableCoursesCBByHour(ArrayList<ICourse> impossibleCourses);
 
 
 }
