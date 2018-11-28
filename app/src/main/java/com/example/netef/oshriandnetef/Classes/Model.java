@@ -165,7 +165,7 @@ public class Model extends Activity implements IModel {
         for (Controller listener : listeners) {
             listener.handle(new MyActionEvent(this, command));
         }
-    }
+}
 
     @Override
     public ICourse[] getAllCoursesForViewer() {

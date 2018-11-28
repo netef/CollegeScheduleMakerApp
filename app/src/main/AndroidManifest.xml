@@ -17,7 +17,8 @@
             </intent-filter>
         </activity>
         <activity android:name=".CreateNewCourse" />
-        <activity android:name=".CreateSlots"></activity>
+        <activity android:name=".CreateSlots" />
+        <activity android:name=".Schedule"></activity>
     </application>
 
 </manifest>

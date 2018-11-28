@@ -4,26 +4,20 @@ package com.example.netef.oshriandnetef.Classes;
 import java.util.ArrayList;
 
 public interface IView {
-    //maybe remove
-    Node createNewShowPane(int courseCode);
-    Node courseMenuPane();
 
-
-    //1
-    Node createNewCoursePane();
+    //MainActivity
+    void createNewCoursePane();
     void scheduleMakerPane(ICourse[] coursesName);
     //2
-    Node createNewSlotPane(int amountOfSlots);
+    void createNewSlotPane(int amountOfSlots);
     void courseCodeException();
-
     void courseNameException();
-
     int getCreatingCourseCode();
     String[] getCourseInput();
-
     String[] getShowInput();
     //3
-    void setMainPane(Node p);
+    Node createNewShowPane(int courseCode);
+    Node courseMenuPane();
     String[][] getSlotsInput();
     void slotTimingException(int slotNumber);
     void roomFullException(int slotNumber);

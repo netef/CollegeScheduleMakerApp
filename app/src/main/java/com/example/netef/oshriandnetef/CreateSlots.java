@@ -7,7 +7,9 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 
-public class CreateSlots extends AppCompatActivity {
+import com.example.netef.oshriandnetef.Classes.IView;
+
+public class CreateSlots extends AppCompatActivity implements IView {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

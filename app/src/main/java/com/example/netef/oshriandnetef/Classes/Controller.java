@@ -41,9 +41,12 @@ public class Controller implements IController {
         this.model = model;
         model.registerListener(this);
     }
-
     @Override
-    public void handle(MyActionEvent e) {
+    public void invokeConroller(String command) {
+        handle(new MyActionEvent(this, command));
+    }
+
+    private void handle(MyActionEvent e) {
         //TODO FOR TESTING ONLY!!!
         if (testing == true) {
             TestScheduleInsert.testSchedule(model.getModelForTestingOnly());
@@ -61,7 +64,7 @@ public class Controller implements IController {
 
         } else if (e.getMsg().equals(CREATE_COURSE_VIEWER)) {
 
-            (viewer).setMainPane(((IView) e.getSource()).createNewCoursePane());
+            (viewer).createNewCoursePane();
 
         } else if (e.getMsg().equals(DONE_CREATE_SLOTS_MODEL)) {
             (viewer).setMainPane(viewer.courseMenuPane());
