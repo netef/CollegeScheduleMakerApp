@@ -1,7 +1,6 @@
-package com.example.netef.oshriandnetef;
+package com.example.netef.oshriandnetef.Classes;
 
 import java.util.HashSet;
-import java.util.Set;
 
 public interface ICourse {
 

@@ -1,4 +1,4 @@
-package com.example.netef.oshriandnetef;
+package com.example.netef.oshriandnetef.Classes;
 
 import java.util.HashMap;
 import java.util.HashSet;

@@ -1,11 +1,6 @@
-package com.example.netef.oshriandnetef;
+package com.example.netef.oshriandnetef.Classes;
 
-import android.graphics.ColorSpace;
-
-import com.example.netef.oshriandnetef.com.example.netef.oshriandnetef.exceptions.EndingTimeBeforeStartingTimeException;
-
-import javafx.application.Application;
-import javafx.stage.Stage;
+import com.example.netef.oshriandnetef.exceptions.EndingTimeBeforeStartingTimeException;
 
 public class Main extends Application {
 

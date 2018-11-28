@@ -1,9 +1,7 @@
-package com.example.netef.oshriandnetef;
+package com.example.netef.oshriandnetef.Classes;
 
-
-import javafx.event.EventHandler;
-import javafx.scene.control.Button;
-
+import com.example.netef.oshriandnetef.Tests.TestScheduleInsert;
+import android.app.Activity;
 
 public class Controller implements EventHandler<MyActionEvent> {
     // all finals that will references to comands from model and viewers
@@ -139,7 +137,7 @@ public class Controller implements EventHandler<MyActionEvent> {
         model.createNewCourse(source.getCourseInput());
     }
 
-    public void addViewer(ScheduleJFX viewer) {
+    public void addViewer(Activity viewer) {
         this.viewer = viewer;
 
     }

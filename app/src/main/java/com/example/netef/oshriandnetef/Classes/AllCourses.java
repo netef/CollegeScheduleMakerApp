@@ -1,11 +1,11 @@
-package com.example.netef.oshriandnetef;
+package com.example.netef.oshriandnetef.Classes;
 
-import com.example.netef.oshriandnetef.com.example.netef.oshriandnetef.exceptions.CourseCodeAlreadyExistException;
-import com.example.netef.oshriandnetef.com.example.netef.oshriandnetef.exceptions.CourseNameAlreadyExistException;
-import com.example.netef.oshriandnetef.com.example.netef.oshriandnetef.exceptions.EndingTimeBeforeStartingTimeException;
-import com.example.netef.oshriandnetef.com.example.netef.oshriandnetef.exceptions.RoomFullException;
-import com.example.netef.oshriandnetef.com.example.netef.oshriandnetef.exceptions.TeacherTeachingException;
-import com.example.netef.oshriandnetef.com.example.netef.oshriandnetef.exceptions.courseNotExistException;
+import com.example.netef.oshriandnetef.exceptions.CourseCodeAlreadyExistException;
+import com.example.netef.oshriandnetef.exceptions.CourseNameAlreadyExistException;
+import com.example.netef.oshriandnetef.exceptions.EndingTimeBeforeStartingTimeException;
+import com.example.netef.oshriandnetef.exceptions.RoomFullException;
+import com.example.netef.oshriandnetef.exceptions.TeacherTeachingException;
+import com.example.netef.oshriandnetef.exceptions.courseNotExistException;
 
 import java.util.HashMap;
 import java.util.Map;

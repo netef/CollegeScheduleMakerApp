@@ -1,4 +1,4 @@
-package com.example.netef.oshriandnetef;
+package com.example.netef.oshriandnetef.Classes;
 
 import com.example.netef.oshriandnetef.exceptions.EndingTimeBeforeStartingTimeException;
 

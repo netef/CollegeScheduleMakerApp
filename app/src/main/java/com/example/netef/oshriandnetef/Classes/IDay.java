@@ -1,4 +1,4 @@
-package com.example.netef.oshriandnetef;
+package com.example.netef.oshriandnetef.Classes;
 
 public interface IDay {
     public enum Day {Sunday, Monday, Tuesday, Wednesday, Thursday, Friday, Saturday}
