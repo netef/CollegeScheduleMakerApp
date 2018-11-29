@@ -18,7 +18,7 @@ public interface IView {
     //2-3 viewers
     int getNumberOfSlots();
     //CreateSlots
-    Node createNewShowPane(int courseCode);
+    //Node createNewShowPane(int courseCode);
     void courseMenuPane();
     String[][] getSlotsInput();
     void slotTimingException(int slotNumber);

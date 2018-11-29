@@ -3,18 +3,20 @@ package com.example.netef.oshriandnetef.Classes;
 import android.widget.CheckBox;
 import java.util.HashSet;
 
-public class CourseCheckBox extends CheckBox implements ICourse {
+public class CourseCheckBox implements ICourse {
 
     private int showCode;
     private int courseCode;
     private String name;
     private HashSet<Integer> set;
+    private CheckBox checkBox;
 
-    public CourseCheckBox(String name, int courseCode, int showCode) {
-        super(name);
+    public CourseCheckBox(String name, int courseCode, int showCode, CheckBox checkBox) {
+
         this.name = name;
         this.courseCode = courseCode;
         this.showCode = showCode;
+        this.checkBox = checkBox;
         set = new HashSet<Integer>() {{
             add(showCode);
         }};
@@ -40,4 +42,11 @@ public class CourseCheckBox extends CheckBox implements ICourse {
     }
 
 
+    public CheckBox getCheckBox() {
+        return checkBox;
+    }
+
+    public void setCheckBox(CheckBox checkBox) {
+        this.checkBox = checkBox;
+    }
 }

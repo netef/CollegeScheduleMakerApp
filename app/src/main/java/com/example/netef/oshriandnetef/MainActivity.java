@@ -5,7 +5,6 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.Button;
 
-
 import com.example.netef.oshriandnetef.Classes.Controller;
 import com.example.netef.oshriandnetef.Classes.CourseCheckBox;
 import com.example.netef.oshriandnetef.Classes.ICourse;
@@ -14,7 +13,6 @@ import com.example.netef.oshriandnetef.Classes.ISlot;
 import com.example.netef.oshriandnetef.Classes.IView;
 import com.example.netef.oshriandnetef.Classes.Model;
 import com.example.netef.oshriandnetef.Classes.ScheduleButton;
-import com.example.netef.oshriandnetef.Classes.MyActionEvent;
 
 import java.util.ArrayList;
 
@@ -53,20 +51,15 @@ public class MainActivity extends AppCompatActivity implements IView {
     }
 
     //UNUSED FUNCTIONS
-    @Override
-    public Node createNewShowPane(int courseCode) {
-        return null;
-    }
 
     @Override
-    public Node courseMenuPane() {
-        return null;
+    public void courseMenuPane() {
     }
 
 
     @Override
-    public Node createNewSlotPane(int amountOfSlots) {
-        return null;
+    public void createNewSlotPane(int amountOfSlots) {
+
     }
 
     @Override
@@ -94,10 +87,6 @@ public class MainActivity extends AppCompatActivity implements IView {
         return new String[0];
     }
 
-    @Override
-    public void setMainPane(Node p) {
-
-    }
 
     @Override
     public String[][] getSlotsInput() {

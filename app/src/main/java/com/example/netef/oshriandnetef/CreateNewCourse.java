@@ -82,6 +82,11 @@ public class CreateNewCourse extends AppCompatActivity implements IView {
         return dropBox.getSelectedItemPosition()+1;
     }
 
+    @Override
+    public int getCreatingCourseCode() {
+        return 0;
+    }
+
     //UNUSED METHODS
     @Override
     public void createNewCoursePane() {
@@ -91,11 +96,6 @@ public class CreateNewCourse extends AppCompatActivity implements IView {
     @Override
     public void scheduleMakerPane(ICourse[] coursesName) {
 
-    }
-
-    @Override
-    public Node createNewShowPane(int courseCode) {
-        return null;
     }
 
     @Override
