@@ -1,6 +1,7 @@
 package com.example.netef.oshriandnetef;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.ArrayAdapter;
@@ -20,14 +21,19 @@ import java.util.ArrayList;
 
 public class CreateNewCourse extends AppCompatActivity implements IView {
 
+    public static final int NUMBER_OF_INPUTS_PER_COURSE = 2;
+    public static final int NUMBER_OF_INPUTS_PER_SHOW = 1;
+
+    EditText courseID;
+    EditText courseName;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_new_course);
 
         Integer dropBoxItems[] = {1,2,3,4,5};
-        EditText courseID = findViewById(R.id.courseID);
-        EditText courseName = findViewById(R.id.courseName);
+        courseID = findViewById(R.id.courseID);
+        courseName = findViewById(R.id.courseName);
         Spinner dropBox = findViewById(R.id.dropBox);
         ArrayAdapter arrayAdapter = new ArrayAdapter(this, android.R.layout.simple_list_item_1, dropBoxItems);
         dropBox.setAdapter(arrayAdapter);
@@ -39,27 +45,34 @@ public class CreateNewCourse extends AppCompatActivity implements IView {
     }
     @Override
     public void createNewSlotPane(int amountOfSlots) {
-        Intent intent=new Intent(getApplicationContext(),createSlot.class);
+        Intent intent=new Intent(getApplicationContext(),CreateSlots.class);
         startActivity(intent);
     }
-    //TODO - NETEF
+
     @Override
     public void courseCodeException() {
-
+        courseID.setBackgroundColor(Color.RED);
+        courseID.setText("Course code already exist");
     }
-    //TODO - NETEF
+
     @Override
     public void courseNameException() {
-
+        courseName.setBackgroundColor(Color.RED);
+        courseName.setText("Course name already exist");
     }
 
     @Override
     public String[] getCourseInput() {
-        return new String[0];
+        String[] courseInput = new String[NUMBER_OF_INPUTS_PER_COURSE];
+        courseInput[0] = courseID.getText().toString();
+        courseInput[1] = courseName.getText().toString();
+        return courseInput;
     }
     @Override
     public String[] getShowInput() {
-        return new String[0];
+        String[] showInput = new String[NUMBER_OF_INPUTS_PER_SHOW];
+        showInput[0] = courseID.getText().toString();
+        return showInput;
     }
     //UNUSED METHODS
     @Override
