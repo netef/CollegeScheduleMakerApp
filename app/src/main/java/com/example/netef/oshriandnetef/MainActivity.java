@@ -32,10 +32,10 @@ public class MainActivity extends AppCompatActivity implements IView {
         Button scheduleBtn = findViewById(R.id.scheduleBtn);
 
         createBtn.setOnClickListener(v -> {
-            controller.invokeConroller(Controller.CREATE_COURSE_VIEWER);
+            controller.invokeConroller(Controller.CREATE_COURSE_VIEWER,this);
         });
         scheduleBtn.setOnClickListener(v -> {
-            controller.invokeConroller(Controller.DONE_CREATE_ALL_COURSES_VIEWER);
+            controller.invokeConroller(Controller.DONE_CREATE_ALL_COURSES_VIEWER,this);
         });
     }
 
@@ -58,7 +58,7 @@ public class MainActivity extends AppCompatActivity implements IView {
 
 
     @Override
-    public void createNewSlotPane(int amountOfSlots) {
+    public void createNewSlotPane() {
 
     }
 

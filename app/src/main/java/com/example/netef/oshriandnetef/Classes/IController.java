@@ -2,6 +2,5 @@ package com.example.netef.oshriandnetef.Classes;
 
 interface IController {
 
-    void invokeConroller(String command);
-
+    void invokeConroller(String command, Object object);
 }

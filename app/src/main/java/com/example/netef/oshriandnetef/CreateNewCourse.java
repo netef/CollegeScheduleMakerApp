@@ -31,23 +31,29 @@ public class CreateNewCourse extends AppCompatActivity implements IView {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_new_course);
-
+        //write the class as viewer at controller
+        MainActivity.controller.addViewer(this);
+        //Spinner assigenment
         Integer dropBoxItems[] = {1,2,3,4,5};
-        courseID = findViewById(R.id.courseID);
-        courseName = findViewById(R.id.courseName);
         dropBox = findViewById(R.id.dropBox);
         ArrayAdapter arrayAdapter = new ArrayAdapter(this, android.R.layout.simple_list_item_1, dropBoxItems);
         dropBox.setAdapter(arrayAdapter);
+        //course id edit text
+        courseID = findViewById(R.id.courseID);
+        //course name  edit text
+        courseName = findViewById(R.id.courseName);
+        //confiem button
         Button confirmbtn = findViewById(R.id.confirmBtn);
         confirmbtn.setOnClickListener(view -> {
-            MainActivity.controller.invokeConroller(Controller.DONE_CREATE_SHOW_VIEWER);
+            MainActivity.controller.invokeConroller(Controller.DONE_CREATE_SHOW_VIEWER,this);
         });
 
     }
     @Override
-    public void createNewSlotPane(int amountOfSlots) {
+    public void createNewSlotPane() {
         Intent intent=new Intent(getApplicationContext(),CreateSlots.class);
-        intent.putExtra("amountOfSlots",amountOfSlots);
+        int numberOfSlots = getNumberOfSlots();
+        intent.putExtra("amountOfSlots",numberOfSlots);
         startActivity(intent);
     }
 

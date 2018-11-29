@@ -45,8 +45,8 @@ public class Controller implements IController {
         viewers=new ArrayList<IView>();
     }
     @Override
-    public void invokeConroller(String command) {
-        handle(new MyActionEvent(this, command));
+    public void invokeConroller(String command,Object object) {
+        handle(new MyActionEvent(object, command));
     }
 
     public void handle(MyActionEvent e) {
@@ -61,16 +61,15 @@ public class Controller implements IController {
         if (e.getMsg().equals(DONE_CREATE_COURSE_VIEWER)) {
             createNewCourse(viewer);
         } else if (e.getMsg().equals(DONE_CREATE_SHOW_VIEWER)) {
-            int numberOfSlots = viewer.getNumberOfSlots();
-            viewer.createNewSlotPane(numberOfSlots);
+
+            viewer.createNewSlotPane();
         } else if (e.getMsg().equals(DONE_CREATE_SLOTS_VIEWER)) {
             createNewShow(viewer);
         } else if (e.getMsg().equals(DONE_CREATE_COURSE_MODEL)) {
             //viewer.createNewShowPane(Model.toIntFromString(viewer.getCourseInput()[0]));
 
         } else if (e.getMsg().equals(CREATE_COURSE_VIEWER)) {
-
-            (viewer).createNewCoursePane();
+            viewer.createNewCoursePane();
 
         } else if (e.getMsg().equals(DONE_CREATE_SLOTS_MODEL)) {
             viewer.courseMenuPane();

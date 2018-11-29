@@ -10,7 +10,7 @@ public interface IView {
     void createNewCoursePane();
     void scheduleMakerPane(ICourse[] coursesName);
     //CreateNewCourse
-    void createNewSlotPane(int amountOfSlots);
+    void createNewSlotPane();
     void courseCodeException();
     void courseNameException();
     String[] getCourseInput();

@@ -77,7 +77,7 @@ public class CreateSlots extends AppCompatActivity implements IView {
     }
 
     @Override
-    public void createNewSlotPane(int amountOfSlots) {
+    public void createNewSlotPane() {
 
     }
 
