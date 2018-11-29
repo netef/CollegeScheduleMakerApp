@@ -41,7 +41,7 @@ public class MainActivity extends AppCompatActivity implements IView {
 
     @Override
     public void scheduleMakerPane(ICourse[] coursesName) {
-        Intent intent = new Intent(getApplicationContext(), CreateNewCourse.class);
+        Intent intent = new Intent(getApplicationContext(), Schedule.class);
         startActivity(intent);
     }
     @Override
