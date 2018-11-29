@@ -65,7 +65,7 @@ public class TestScheduleInsert {
 				e.printStackTrace();
 			}
 				
-			/* Schedule loz=model.getScheduleForTestingOnly();
+			/* Schedule2 loz=model.getScheduleForTestingOnly();
 			 try {
 				loz.addCourseToSchedule(allCourses.getCourseById(1), 0);
 				loz.addCourseToSchedule(allCourses.getCourseById(1), 1);

@@ -1,48 +1,103 @@
 package com.example.netef.oshriandnetef;
 
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.Snackbar;
+import android.view.View;
+import android.support.design.widget.NavigationView;
+import android.support.v4.view.GravityCompat;
+import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
+import android.view.Menu;
+import android.view.MenuItem;
+import android.widget.EditText;
 
-import com.example.netef.oshriandnetef.Classes.IDay;
-import com.example.netef.oshriandnetef.Classes.ScheduleButton;
-
-public class Schedule extends AppCompatActivity {
-    private static final int[] BUTTON_IDS = {
-            R.id.button81, R.id.button82, R.id.button83, R.id.button84, R.id.button85, R.id.button86,
-            R.id.button91, R.id.button92, R.id.button93, R.id.button94, R.id.button95, R.id.button96,
-            R.id.button101, R.id.button102, R.id.button103, R.id.button104, R.id.button105, R.id.button106,
-            R.id.button111, R.id.button112, R.id.button113, R.id.button114, R.id.button115, R.id.button116,
-            R.id.button121, R.id.button122, R.id.button123, R.id.button124, R.id.button125, R.id.button126,
-            R.id.button131, R.id.button132, R.id.button133, R.id.button134, R.id.button135, R.id.button136,
-            R.id.button141, R.id.button142, R.id.button143, R.id.button144, R.id.button145, R.id.button146,
-            R.id.button151, R.id.button152, R.id.button153, R.id.button154, R.id.button155, R.id.button156,
-            R.id.button161, R.id.button162, R.id.button163, R.id.button164, R.id.button165, R.id.button166,
-            R.id.button171, R.id.button172, R.id.button173, R.id.button174, R.id.button175, R.id.button176,
-            R.id.button181, R.id.button182, R.id.button183, R.id.button184, R.id.button185, R.id.button186,
-            R.id.button191, R.id.button192, R.id.button193, R.id.button194, R.id.button195, R.id.button196,
-            R.id.button201, R.id.button202, R.id.button203, R.id.button204, R.id.button205, R.id.button206,
-            R.id.button211, R.id.button212, R.id.button213, R.id.button214, R.id.button215, R.id.button216,
-            R.id.button221, R.id.button222, R.id.button223, R.id.button224, R.id.button225, R.id.button226,
-    };
-    public static final int INITIAL_HOUR_OF_SCHEDULE = 8;
-    public static final int LAST_HOUR_OF_SCHEDULE = 23;
-    private ScheduleButton[][] scheduleButtons;
+public class Schedule extends AppCompatActivity
+        implements NavigationView.OnNavigationItemSelectedListener {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_schedule);
 
-        scheduleButtons = new ScheduleButton[6][LAST_HOUR_OF_SCHEDULE - INITIAL_HOUR_OF_SCHEDULE];
-        for (int i = 0; i < 6; i++) {
-            for (int j = 0; j < LAST_HOUR_OF_SCHEDULE - INITIAL_HOUR_OF_SCHEDULE; j++) {
-                ScheduleButton tempButton = new ScheduleButton(IDay.dayByInt(i + 1), j + INITIAL_HOUR_OF_SCHEDULE, findViewById(BUTTON_IDS[i + (j * 6)]));
-                tempButton.getButton().setOnClickListener(e -> scheduleButtonsUnAvctive(tempButton)); // mamesh me!
-                tempButton.setFlag(true);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
 
-                scheduleButtons[i][j] = tempButton;
+        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+                        .setAction("Action", null).show();
             }
+        });
+
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
+                this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+        drawer.addDrawerListener(toggle);
+        toggle.syncState();
+
+        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+        navigationView.setNavigationItemSelectedListener(this);
+    }
+
+    @Override
+    public void onBackPressed() {
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        if (drawer.isDrawerOpen(GravityCompat.START)) {
+            drawer.closeDrawer(GravityCompat.START);
+        } else {
+            super.onBackPressed();
         }
     }
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.schedule, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle action bar item clicks here. The action bar will
+        // automatically handle clicks on the Home/Up button, so long
+        // as you specify a parent activity in AndroidManifest.xml.
+        int id = item.getItemId();
+
+        //noinspection SimplifiableIfStatement
+        if (id == R.id.action_settings) {
+            return true;
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
+
+    @SuppressWarnings("StatementWithEmptyBody")
+    @Override
+    public boolean onNavigationItemSelected(MenuItem item) {
+        // Handle navigation view item clicks here.
+        int id = item.getItemId();
+
+        if (id == R.id.nav_camera) {
+            // Handle the camera action
+        } else if (id == R.id.nav_gallery) {
+
+        } else if (id == R.id.nav_slideshow) {
+
+        } else if (id == R.id.nav_manage) {
+
+        } else if (id == R.id.nav_share) {
+
+        } else if (id == R.id.nav_send) {
+
+        }
+
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        drawer.closeDrawer(GravityCompat.START);
+        return true;
+    }
 }
