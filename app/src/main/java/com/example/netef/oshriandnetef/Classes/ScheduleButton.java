@@ -1,18 +1,20 @@
 package com.example.netef.oshriandnetef.Classes;
 
 
-import javafx.scene.control.Button;
+import android.widget.Button;
 
-public class ScheduleButton extends Button implements IHour {
+
+public class ScheduleButton implements IHour {
     private boolean flag;
     private IDay.Day day;
     private int beginingHour;
+    private Button button;
 
-    public ScheduleButton(IDay.Day day, int beginingHour) {
-        super();
+    public ScheduleButton(IDay.Day day, int beginingHour, Button button) {
         this.day = day;
         this.beginingHour = beginingHour;
         setFlag(true);
+        this.button = button;
     }
 
     public boolean isFlag() {
@@ -31,5 +33,12 @@ public class ScheduleButton extends Button implements IHour {
         return day;
     }
 
+    public Button getButton() {
+        return button;
+    }
+
+    public void setButton(Button button) {
+        this.button = button;
+    }
 }
 
