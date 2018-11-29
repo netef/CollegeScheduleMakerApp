@@ -9,22 +9,23 @@ public interface IView {
     //MainActivity
     void createNewCoursePane();
     void scheduleMakerPane(ICourse[] coursesName);
-    //2
+    //CreateNewCourse
     void createNewSlotPane(int amountOfSlots);
     void courseCodeException();
     void courseNameException();
-
     String[] getCourseInput();
     String[] getShowInput();
-    //3
+    //2-3 viewers
+    int getNumberOfSlots();
+    //CreateSlots
     Node createNewShowPane(int courseCode);
-    Node courseMenuPane();
+    void courseMenuPane();
     String[][] getSlotsInput();
     void slotTimingException(int slotNumber);
     void roomFullException(int slotNumber);
     void teacherTeachingException(int slotNumber);
     void roomInputIsntAint(int slotNumber);
-    int getNumberOfSlots();
+
     //4
     int getInvokingDayNumber();
     CourseCheckBox getInvokingCourseCheckboxes();
