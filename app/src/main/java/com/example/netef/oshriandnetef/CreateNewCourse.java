@@ -24,8 +24,9 @@ public class CreateNewCourse extends AppCompatActivity implements IView {
     public static final int NUMBER_OF_INPUTS_PER_COURSE = 2;
     public static final int NUMBER_OF_INPUTS_PER_SHOW = 1;
 
-    EditText courseID;
-    EditText courseName;
+    private EditText courseID;
+    private EditText courseName;
+    private Spinner dropBox;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -34,7 +35,7 @@ public class CreateNewCourse extends AppCompatActivity implements IView {
         Integer dropBoxItems[] = {1,2,3,4,5};
         courseID = findViewById(R.id.courseID);
         courseName = findViewById(R.id.courseName);
-        Spinner dropBox = findViewById(R.id.dropBox);
+        dropBox = findViewById(R.id.dropBox);
         ArrayAdapter arrayAdapter = new ArrayAdapter(this, android.R.layout.simple_list_item_1, dropBoxItems);
         dropBox.setAdapter(arrayAdapter);
         Button confirmbtn = findViewById(R.id.confirmBtn);
@@ -46,6 +47,7 @@ public class CreateNewCourse extends AppCompatActivity implements IView {
     @Override
     public void createNewSlotPane(int amountOfSlots) {
         Intent intent=new Intent(getApplicationContext(),CreateSlots.class);
+        intent.putExtra("amountOfSlots",amountOfSlots);
         startActivity(intent);
     }
 
@@ -74,6 +76,12 @@ public class CreateNewCourse extends AppCompatActivity implements IView {
         showInput[0] = courseID.getText().toString();
         return showInput;
     }
+    @Override
+    public int getNumberOfSlots() {
+        //get index of selcted index , adding one because series number start at 1 and the indexes with 0
+        return dropBox.getSelectedItemPosition()+1;
+    }
+
     //UNUSED METHODS
     @Override
     public void createNewCoursePane() {
@@ -85,18 +93,14 @@ public class CreateNewCourse extends AppCompatActivity implements IView {
 
     }
 
-
-
-
-
     @Override
     public Node createNewShowPane(int courseCode) {
         return null;
     }
 
     @Override
-    public Node courseMenuPane() {
-        return null;
+    public void courseMenuPane() {
+
     }
 
     @Override
@@ -124,10 +128,6 @@ public class CreateNewCourse extends AppCompatActivity implements IView {
 
     }
 
-    @Override
-    public int getNumberOfSlots() {
-        return 0;
-    }
 
     @Override
     public int getInvokingDayNumber() {
