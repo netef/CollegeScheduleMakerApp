@@ -1,7 +1,7 @@
 package com.example.netef.oshriandnetef.Classes;
 
 
-import javafx.scene.control.Button;
+import android.widget.Button;
 
 public class ScheduleButton extends Button implements IHour {
     private boolean flag;

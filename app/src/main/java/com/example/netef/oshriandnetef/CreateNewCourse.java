@@ -1,5 +1,6 @@
 package com.example.netef.oshriandnetef;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.ArrayAdapter;
@@ -38,9 +39,28 @@ public class CreateNewCourse extends AppCompatActivity implements IView {
     }
     @Override
     public void createNewSlotPane(int amountOfSlots) {
+        Intent intent=new Intent(getApplicationContext(),createSlot.class);
+        startActivity(intent);
+    }
+    //TODO - NETEF
+    @Override
+    public void courseCodeException() {
+
+    }
+    //TODO - NETEF
+    @Override
+    public void courseNameException() {
 
     }
 
+    @Override
+    public String[] getCourseInput() {
+        return new String[0];
+    }
+    @Override
+    public String[] getShowInput() {
+        return new String[0];
+    }
     //UNUSED METHODS
     @Override
     public void createNewCoursePane() {
@@ -54,30 +74,7 @@ public class CreateNewCourse extends AppCompatActivity implements IView {
 
 
 
-    @Override
-    public void courseCodeException() {
 
-    }
-
-    @Override
-    public void courseNameException() {
-
-    }
-
-    @Override
-    public int getCreatingCourseCode() {
-        return 0;
-    }
-
-    @Override
-    public String[] getCourseInput() {
-        return new String[0];
-    }
-
-    @Override
-    public String[] getShowInput() {
-        return new String[0];
-    }
 
     @Override
     public Node createNewShowPane(int courseCode) {
