@@ -2,6 +2,8 @@ package com.example.netef.oshriandnetef.Classes;
 
 import com.example.netef.oshriandnetef.Tests.TestScheduleInsert;
 
+import java.util.ArrayList;
+
 public class Controller implements IController {
     // all finals that will references to comands from model and viewers
     public static final String CREATE_COURSE_VIEWER = "button create course invoked";
@@ -32,42 +34,46 @@ public class Controller implements IController {
     public static final String SCHEDULE_BUTTON_UNACTIVE_MODEL = "schedule button is changed to unactive MODEL";
     public static final String SCHEDULE_BUTTON_ACTIVE_MODEL = "schedule button is changed to active MODEL";
 
-
     private IView viewer;
+    private ArrayList<IView> viewers;
     private IModel model;
     private boolean testing = true;    //TODO FOR TESTING ONLY!!!
 
     public Controller(IModel model) {
         this.model = model;
         model.registerListener(this);
+        viewers=new ArrayList<IView>();
     }
     @Override
     public void invokeConroller(String command) {
         handle(new MyActionEvent(this, command));
     }
 
-    private void handle(MyActionEvent e) {
+    public void handle(MyActionEvent e) {
         //TODO FOR TESTING ONLY!!!
         if (testing == true) {
             TestScheduleInsert.testSchedule(model.getModelForTestingOnly());
             testing = false;
         }
+        if(e.getSource() instanceof IView){
+            viewer=(IView)e.getSource();
+        }
         if (e.getMsg().equals(DONE_CREATE_COURSE_VIEWER)) {
-            createNewCourse((IView) e.getSource());
+            createNewCourse(viewer);
         } else if (e.getMsg().equals(DONE_CREATE_SHOW_VIEWER)) {
             int numberOfSlots = viewer.getNumberOfSlots();
-            (viewer).setMainPane(viewer.createNewSlotPane(numberOfSlots));
+            viewer.createNewSlotPane(numberOfSlots);
         } else if (e.getMsg().equals(DONE_CREATE_SLOTS_VIEWER)) {
-            createNewShow((IView) e.getSource());
+            createNewShow(viewer);
         } else if (e.getMsg().equals(DONE_CREATE_COURSE_MODEL)) {
-            viewer.setMainPane(viewer.createNewShowPane(Model.toIntFromString(viewer.getCourseInput()[0])));
+            //viewer.createNewShowPane(Model.toIntFromString(viewer.getCourseInput()[0]));
 
         } else if (e.getMsg().equals(CREATE_COURSE_VIEWER)) {
 
             (viewer).createNewCoursePane();
 
         } else if (e.getMsg().equals(DONE_CREATE_SLOTS_MODEL)) {
-            (viewer).setMainPane(viewer.courseMenuPane());
+            viewer.courseMenuPane();
 
         } else if (e.getMsg().equals(COURSE_CODE_ALREADY_EXIST_ERROR)) {
 
@@ -119,9 +125,9 @@ public class Controller implements IController {
         } else if (e.getMsg().equals(SCHEDULE_BUTTON_ACTIVE_MODEL)) {
             viewer.ableCoursesCBByHour(model.getImpossibleCourses());
         } else if (e.getMsg().equals(CREATE_ANOTHER_SHOW_VIEWER)) {
-            createAnotherShow((IView) e.getSource());
+            createAnotherShow(viewer);
         } else if (e.getMsg().equals(CREATE_ANOTHER_SHOW_MODEL)) {
-            viewer.setMainPane(viewer.createNewShowPane(Model.toIntFromString(viewer.getCourseInput()[0])));
+           // viewer.createNewShowPane(Model.toIntFromString(viewer.getCourseInput()[0]));
         }
     }
 
@@ -140,7 +146,7 @@ public class Controller implements IController {
     }
 
     public void addViewer(IView viewer) {
-        this.viewer = viewer;
+        viewers.add(viewer);
 
     }
 
