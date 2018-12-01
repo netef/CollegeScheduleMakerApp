@@ -15,10 +15,9 @@
         android:layout_marginTop="40dp"
         android:layout_marginEnd="8dp"
         android:text="Creating New Slots"
-        android:textSize="30sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:textSize="30sp">
+
+    </TextView>
 
     <LinearLayout
         android:layout_width="wrap_content"
@@ -29,28 +28,24 @@
         <Spinner
             android:id="@+id/chooseDay"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/Label1" />
+            android:layout_height="wrap_content">
+
+        </Spinner>
 
         <Spinner
             android:id="@+id/startTime"
-            android:layout_width="100dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            app:layout_constraintStart_toEndOf="@+id/chooseDay"
-            app:layout_constraintTop_toBottomOf="@+id/Label1" />
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+        </Spinner>
 
         <Spinner
             android:id="@+id/finishTime"
-            android:layout_width="100dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginEnd="8dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toEndOf="@+id/startTime"
-            app:layout_constraintTop_toBottomOf="@+id/Label1" />
+            app:layout_constraintEnd_toEndOf="parent">
+
+        </Spinner>
 
     </LinearLayout>
 
@@ -66,8 +61,7 @@
             android:layout_height="wrap_content"
             android:hint="Room Number"
             android:inputType="textPersonName"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/startTime" />
+            />
 
         <EditText
             android:id="@+id/lecturerName"
@@ -76,9 +70,7 @@
             android:layout_marginEnd="8dp"
             android:hint="Lecturer Name"
             android:inputType="textPersonName"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/roomNumber"
-            app:layout_constraintTop_toBottomOf="@+id/startTime" />
+            />
 
     </LinearLayout>
 
@@ -91,9 +83,6 @@
        android:layout_gravity="center"
         android:text="Confirm"
         android:textSize="20sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
         android:background="@drawable/my_button_bg"/>
 
     <Button
@@ -104,10 +93,6 @@
         android:layout_marginTop="10dp"
         android:text="Create Another Show"
         android:textSize="20sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/confirmBtn"
         android:background="@drawable/my_button_bg"/>
 
 </LinearLayout>
