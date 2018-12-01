@@ -17,7 +17,8 @@
         android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/createBtn" />
+        app:layout_constraintTop_toBottomOf="@+id/createBtn"
+        android:background="@drawable/my_button_bg"/>
 
     <Button
         android:id="@+id/createBtn"
@@ -29,6 +30,7 @@
         android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        android:background="@drawable/my_button_bg"/>
 
 </LinearLayout>
