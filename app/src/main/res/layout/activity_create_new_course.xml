@@ -1,29 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context=".CreateNewCourse">
 
-    <EditText
-        android:id="@+id/courseName"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="20dp"
-        android:ems="10"
-        android:hint="Course Name"
-        android:inputType="textPersonName"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/courseID" />
 
     <TextView
         android:id="@+id/Title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginStart="50dp"
+        android:layout_marginTop="80dp"
         android:text="Create A New Course"
         android:textAllCaps="false"
         android:textSize="30sp"
@@ -32,23 +22,57 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
+        android:id="@+id/courseName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:hint="Course Name"
+        android:inputType="textPersonName"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/courseID" />
+
+
+    <EditText
         android:id="@+id/courseID"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="90dp"
-        android:ems="10"
+        android:layout_marginTop="20dp"
         android:hint="Course Id"
         android:inputType="textPersonName"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/Title" />
 
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+        <TextView
+            android:id="@+id/Label3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="32dp"
+            android:text="Amount Of Slots:"
+            android:textSize="20sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/courseName" />
+
+        <Spinner
+            android:id="@+id/dropBox"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="60dp"
+            android:layout_marginTop="32dp"
+            app:layout_constraintStart_toEndOf="@+id/Label3"
+            app:layout_constraintTop_toBottomOf="@+id/courseName" />
+
+    </LinearLayout>
+
+
     <Button
         android:id="@+id/confirmBtn"
         android:layout_width="129dp"
         android:layout_height="80dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="200dp"
+        android:layout_marginStart="150dp"
+        android:layout_marginTop="100dp"
         android:layout_marginEnd="8dp"
         android:text="Confirm"
         android:textSize="20sp"
@@ -56,23 +80,4 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/courseName" />
 
-    <TextView
-        android:id="@+id/Label3"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="32dp"
-        android:text="Amount Of Slots:"
-        android:textSize="20sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/courseName" />
-
-    <Spinner
-        android:id="@+id/dropBox"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="60dp"
-        android:layout_marginTop="32dp"
-        app:layout_constraintStart_toEndOf="@+id/Label3"
-        app:layout_constraintTop_toBottomOf="@+id/courseName" />
-</android.support.constraint.ConstraintLayout>
+</LinearLayout>
