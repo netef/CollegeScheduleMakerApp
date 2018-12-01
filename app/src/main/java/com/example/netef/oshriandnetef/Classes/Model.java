@@ -26,6 +26,8 @@ public class Model extends Activity implements IModel {
     private HashSet<Integer> blockedDays = new HashSet();// nedd to by finals by
     // number of days
     private HashMap<Integer, HashSet<Integer>> blockedHours = new HashMap();//HashMap <days,HashSet<hours>>
+
+
     // TODO FOR TESTING ONLY!!!
 
     @Override
@@ -46,7 +48,8 @@ public class Model extends Activity implements IModel {
     private int ivokingSlotNumber;
     private ISlot[] inokedSlots;
     private boolean createAnotherShow;
-
+    //last created course , using for aother show creation
+    ICourse lastCreatedCourse;
     public int setShowNumberPlusOne(int courseCode) {
         int showNumber = 0;
         try {
@@ -62,6 +65,7 @@ public class Model extends Activity implements IModel {
     public void createNewCourse(String[] courseInput) {
         try {
             allCourses.addCourse(toIntFromString(courseInput[0]), courseInput[1]);
+            lastCreatedCourse=allCourses.getCourseById(toIntFromString(courseInput[0]));
             invokeListeners(Controller.DONE_CREATE_COURSE_MODEL);
             return;
         } catch (CourseCodeAlreadyExistException | NumberFormatException e) {
@@ -70,6 +74,9 @@ public class Model extends Activity implements IModel {
         } catch (CourseNameAlreadyExistException e) {
             invokeListeners(Controller.COURSE_NAME_ALREADY_EXIST_ERROR);
             return;
+        }
+        catch (courseNotExistException e){
+            //TODO
         }
     }
 
@@ -89,9 +96,9 @@ public class Model extends Activity implements IModel {
     }
 
     @Override
-    public void createNewShow(int courseCode, String[][] slotsInput) {
+    public void createNewShow(String[][] slotsInput) {
         try {
-
+            int courseCode=lastCreatedCourse.getCourseCode();
             int showNumber = setShowNumberPlusOne(courseCode);
             // avoiding create same show after return from error input
             if (allCourses.getCourseById(courseCode).getShowByShowCourse(showNumber) == null) {// IS
@@ -142,6 +149,7 @@ public class Model extends Activity implements IModel {
                     return;
                 }
             }
+
             if (createAnotherShow == false) {
                 invokeListeners(Controller.DONE_CREATE_SLOTS_MODEL);
             } else {
@@ -163,7 +171,7 @@ public class Model extends Activity implements IModel {
 
     private void invokeListeners(String command) {
         for (Controller listener : listeners) {
-            listener.handle(new MyActionEvent(this, command));
+            listener.invokeConroller(command,this);
         }
 }
 
@@ -233,9 +241,9 @@ public class Model extends Activity implements IModel {
     }
 
     @Override
-    public void createAnotherShow(int creatingCourseCode, String[][] slotsInput) {
+    public void createAnotherShow( String[][] slotsInput) {
         createAnotherShow = true;
-        createNewShow(creatingCourseCode, slotsInput);
+        createNewShow(slotsInput);
 
     }
 
@@ -480,6 +488,11 @@ public class Model extends Activity implements IModel {
         invokeListeners(Controller.SCHEDULE_BUTTON_ACTIVE_MODEL);
 
 
+    }
+
+    @Override
+    public ICourse lastCratedCourse() {
+        return lastCreatedCourse;
     }
 
 }

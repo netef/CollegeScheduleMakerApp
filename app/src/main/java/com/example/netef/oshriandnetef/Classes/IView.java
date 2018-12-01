@@ -4,8 +4,7 @@ package com.example.netef.oshriandnetef.Classes;
 import java.util.ArrayList;
 
 public interface IView {
-    //globalmethods
-    int getCreatingCourseCode();
+
     //MainActivity
     void createNewCoursePane();
     void scheduleMakerPane(ICourse[] coursesName);
@@ -18,7 +17,7 @@ public interface IView {
     //2-3 viewers
     int getNumberOfSlots();
     //CreateSlots
-    //Node createNewShowPane(int courseCode);
+    void createNewShowPane(int courseCode,String courseName);
     void courseMenuPane();
     String[][] getSlotsInput();
     void slotTimingException(int slotNumber);

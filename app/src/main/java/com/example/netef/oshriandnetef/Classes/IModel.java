@@ -7,7 +7,7 @@ public interface IModel {
 
     void createNewCourse(String[] courseInput);
 
-    void createNewShow(int courseCode, String[][] strings);
+    void createNewShow(String[][] strings);
 
     int getIvokingSlotNumber();
 
@@ -24,7 +24,7 @@ public interface IModel {
 
     ArrayList<ICourse> getImpossibleCourses();
 
-    void createAnotherShow(int creatingCourseCode, String[][] slotsInput);
+    void createAnotherShow(String[][] slotsInput);
 
     void removeShowsByDay(int invokingDayNumber);
 
@@ -37,4 +37,5 @@ public interface IModel {
     void addPossibleShowsByHour(IHour iHour);
 
 
+    ICourse lastCratedCourse();
 }

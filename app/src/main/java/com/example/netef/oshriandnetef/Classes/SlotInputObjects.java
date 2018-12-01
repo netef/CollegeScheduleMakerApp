@@ -4,10 +4,10 @@ package com.example.netef.oshriandnetef.Classes;
 import android.widget.EditText;
 import android.widget.Spinner;
 
-public class SlotInputObjects {
-    private Spinner dayComboBox;
-    private Spinner startTimeComboBox;
-    private Spinner finishTimeComboBox;
+    public class SlotInputObjects {
+        private Spinner dayComboBox;
+        private Spinner startTimeComboBox;
+        private Spinner finishTimeComboBox;
     private EditText roomNumber;
     private EditText lecturerName;
 

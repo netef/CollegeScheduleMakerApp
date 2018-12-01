@@ -33,6 +33,7 @@ public class Controller implements IController {
     public static final String CREATE_ANOTHER_SHOW_MODEL = "create another show model";
     public static final String SCHEDULE_BUTTON_UNACTIVE_MODEL = "schedule button is changed to unactive MODEL";
     public static final String SCHEDULE_BUTTON_ACTIVE_MODEL = "schedule button is changed to active MODEL";
+    public static final String DONE_CREATE_COURSE_ANOTHER_SHOW_VIEWER ="Another show created" ;
 
     private IView viewer;
     private ArrayList<IView> viewers;
@@ -58,20 +59,21 @@ public class Controller implements IController {
         if(e.getSource() instanceof IView){
             viewer=(IView)e.getSource();
         }
-        if (e.getMsg().equals(DONE_CREATE_COURSE_VIEWER)) {
-            createNewCourse(viewer);
-        } else if (e.getMsg().equals(DONE_CREATE_SHOW_VIEWER)) {
 
-            viewer.createNewSlotPane();
-        } else if (e.getMsg().equals(DONE_CREATE_SLOTS_VIEWER)) {
-            createNewShow(viewer);
-        } else if (e.getMsg().equals(DONE_CREATE_COURSE_MODEL)) {
-            //viewer.createNewShowPane(Model.toIntFromString(viewer.getCourseInput()[0]));
-
-        } else if (e.getMsg().equals(CREATE_COURSE_VIEWER)) {
+        //All actions scinerios
+        if (e.getMsg().equals(CREATE_COURSE_VIEWER)) {
             viewer.createNewCoursePane();
-
-        } else if (e.getMsg().equals(DONE_CREATE_SLOTS_MODEL)) {
+        }
+        else if (e.getMsg().equals(DONE_CREATE_COURSE_VIEWER)) {
+            createNewCourse(viewer);
+        } else if (e.getMsg().equals(DONE_CREATE_COURSE_MODEL)) {
+            viewer.createNewSlotPane();
+        }  else if (e.getMsg().equals(DONE_CREATE_SLOTS_VIEWER)) {
+            createNewShow(viewer);
+        } else if (e.getMsg().equals(DONE_CREATE_COURSE_ANOTHER_SHOW_VIEWER)) {
+            viewer.createNewSlotPane();
+        }
+        else if (e.getMsg().equals(DONE_CREATE_SLOTS_MODEL)) {
             viewer.courseMenuPane();
 
         } else if (e.getMsg().equals(COURSE_CODE_ALREADY_EXIST_ERROR)) {
@@ -126,18 +128,20 @@ public class Controller implements IController {
         } else if (e.getMsg().equals(CREATE_ANOTHER_SHOW_VIEWER)) {
             createAnotherShow(viewer);
         } else if (e.getMsg().equals(CREATE_ANOTHER_SHOW_MODEL)) {
-           // viewer.createNewShowPane(Model.toIntFromString(viewer.getCourseInput()[0]));
+            //Fetching last created course from model , because the creadet new show is from the same course
+            ICourse course=model.lastCratedCourse();
+            viewer.createNewShowPane(course.getCourseCode(),course.getCourseName());
         }
     }
 
 
     private void createAnotherShow(IView source) {
-        model.createAnotherShow(source.getCreatingCourseCode(), source.getSlotsInput());
+        model.createAnotherShow(source.getSlotsInput());
 
     }
 
     private void createNewShow(IView source) {
-        model.createNewShow(source.getCreatingCourseCode(), source.getSlotsInput());
+        model.createNewShow(source.getSlotsInput());
     }
 
     private void createNewCourse(IView source) {

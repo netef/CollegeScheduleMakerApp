@@ -23,30 +23,52 @@ public class CreateNewCourse extends AppCompatActivity implements IView {
 
     public static final int NUMBER_OF_INPUTS_PER_COURSE = 2;
     public static final int NUMBER_OF_INPUTS_PER_SHOW = 1;
+    public static boolean isAnotherShow=false;
 
     private EditText courseID;
     private EditText courseName;
     private Spinner dropBox;
+
+    @Override
+    public void onResume()
+    {  // After a pause OR at startup
+        super.onResume();
+        //if resume and another show is true , meaning creating another show for the course
+        if(isAnotherShow){
+            anotherShow();
+        }
+    }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_new_course);
         //write the class as viewer at controller
         MainActivity.controller.addViewer(this);
+
         //Spinner assigenment
         Integer dropBoxItems[] = {1,2,3,4,5};
         dropBox = findViewById(R.id.dropBox);
         ArrayAdapter arrayAdapter = new ArrayAdapter(this, android.R.layout.simple_list_item_1, dropBoxItems);
         dropBox.setAdapter(arrayAdapter);
+
         //course id edit text
         courseID = findViewById(R.id.courseID);
+
         //course name  edit text
         courseName = findViewById(R.id.courseName);
+
         //confiem button
         Button confirmbtn = findViewById(R.id.confirmBtn);
         confirmbtn.setOnClickListener(view -> {
-            MainActivity.controller.invokeConroller(Controller.DONE_CREATE_SHOW_VIEWER,this);
+            if(isAnotherShow) {
+                isAnotherShow=false;
+                MainActivity.controller.invokeConroller(Controller.DONE_CREATE_COURSE_ANOTHER_SHOW_VIEWER,this);
+            }
+            else MainActivity.controller.invokeConroller(Controller.DONE_CREATE_COURSE_VIEWER,this);
         });
+        //check if activity should create another show or new course
+        //if its another show secnrio
+
 
     }
     @Override
@@ -56,17 +78,21 @@ public class CreateNewCourse extends AppCompatActivity implements IView {
         intent.putExtra("amountOfSlots",numberOfSlots);
         startActivity(intent);
     }
+    private void anotherShow() {
+        //SET Course code from last show,Also disable editing.
+        this.courseID.setEnabled(false);
 
+        //SET Course name from last show,Also disable editing.
+        this.courseName.setEnabled(false);
+    }
     @Override
     public void courseCodeException() {
-        courseID.setBackgroundColor(Color.RED);
-        courseID.setText("Course code already exist");
+        courseID.setError("Course code already exist");
     }
 
     @Override
     public void courseNameException() {
-        courseName.setBackgroundColor(Color.RED);
-        courseName.setText("Course name already exist");
+        courseName.setError("Course name already exist");
     }
 
     @Override
@@ -88,17 +114,16 @@ public class CreateNewCourse extends AppCompatActivity implements IView {
         return dropBox.getSelectedItemPosition()+1;
     }
 
-    @Override
-    public int getCreatingCourseCode() {
-        return 0;
-    }
 
     //UNUSED METHODS
     @Override
     public void createNewCoursePane() {
 
     }
+    @Override
+    public void createNewShowPane(int courseCode,String courseName){
 
+    }
     @Override
     public void scheduleMakerPane(ICourse[] coursesName) {
 

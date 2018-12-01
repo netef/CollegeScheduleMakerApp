@@ -18,16 +18,17 @@ import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity implements IView {
     public static Controller controller;
-
+    private static boolean firstRun=true;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-        Model model = new Model();
-        controller = new Controller(model);
-        controller.addViewer(this);
-
+        if(firstRun) {
+            firstRun=false;
+            Model model = new Model();
+            controller = new Controller(model);
+            controller.addViewer(this);
+        }
         Button createBtn = findViewById(R.id.createBtn);
         Button scheduleBtn = findViewById(R.id.scheduleBtn);
 
@@ -47,6 +48,7 @@ public class MainActivity extends AppCompatActivity implements IView {
     @Override
     public void createNewCoursePane() {
         Intent intent = new Intent(getApplicationContext(), CreateNewCourse.class);
+        intent.putExtra("isAnotherShow",false);
         startActivity(intent);
     }
 
@@ -70,11 +72,6 @@ public class MainActivity extends AppCompatActivity implements IView {
     @Override
     public void courseNameException() {
 
-    }
-
-    @Override
-    public int getCreatingCourseCode() {
-        return 0;
     }
 
     @Override
@@ -116,6 +113,11 @@ public class MainActivity extends AppCompatActivity implements IView {
     @Override
     public int getNumberOfSlots() {
         return 0;
+    }
+
+    @Override
+    public void createNewShowPane(int courseCode,String courseName){
+
     }
 
     @Override
