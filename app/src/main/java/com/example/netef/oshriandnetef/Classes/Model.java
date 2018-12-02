@@ -96,6 +96,18 @@ public class Model extends Activity implements IModel {
     }
 
     @Override
+    public void removeCourse(String s) {
+        try {
+            allCourses.getMapOfCourse().remove(toIntFromString(s));
+
+        }catch(NumberFormatException e){
+                //first time create course.
+                //nothing to delete , nothing to show te user
+                return;
+            }
+    }
+
+    @Override
     public void createNewShow(String[][] slotsInput) {
         try {
             int courseCode=lastCreatedCourse.getCourseCode();
@@ -125,6 +137,7 @@ public class Model extends Activity implements IModel {
                 try {
                     numberOfRoom = toIntFromString(slotsInput[i][3]);
                 } catch (NumberFormatException e) {
+                    allCourses.removeShow(courseCode, showNumber);
                     setIvokingSlotNumber(i);
                     invokeListeners(Controller.ROOM_INPUT_ISNT_INTEGER);
                     return;
@@ -135,15 +148,18 @@ public class Model extends Activity implements IModel {
                         allCourses.addSlot(courseCode, showNumber, i, day, startingTime, endingTime, numberOfRoom,
                                 nameOfLect);
                     } catch (RoomFullException e) {
+                        allCourses.removeShow(courseCode, showNumber);
                         setIvokingSlotNumber(i);
                         invokeListeners(Controller.ROOM_FULL_EROOR);
                         return;
                     } catch (TeacherTeachingException e) {
+                        allCourses.removeShow(courseCode, showNumber);
                         setIvokingSlotNumber(i);
                         invokeListeners(Controller.TEACHER_ALREADY_TEACHING_ERROR);
                         return;
                     }
                 } catch (EndingTimeBeforeStartingTimeException e) {
+                    allCourses.removeShow(courseCode, showNumber);
                     setIvokingSlotNumber(i);
                     invokeListeners(Controller.TIMING_ERROR);
                     return;

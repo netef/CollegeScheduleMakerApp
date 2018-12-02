@@ -101,4 +101,7 @@ public class AllCourses {
         return true;
     }
 
+    public void removeShow(int courseCode, int showNumber) {
+        mapOfCourses.get(courseCode).getShows().remove(showNumber);
+    }
 }

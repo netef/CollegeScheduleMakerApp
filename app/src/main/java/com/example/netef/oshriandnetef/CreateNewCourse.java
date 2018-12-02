@@ -30,12 +30,22 @@ public class CreateNewCourse extends AppCompatActivity implements IView {
     private Spinner dropBox;
 
     @Override
+    public void onDestroy() {
+        super.onDestroy();
+        //remove activivty from the controller before activivty destroy
+        MainActivity.controller.removeViewer(this);
+    }
+    @Override
     public void onResume()
     {  // After a pause OR at startup
         super.onResume();
         //if resume and another show is true , meaning creating another show for the course
         if(isAnotherShow){
             anotherShow();
+        }
+        else{//if  isAnotherShow==false, we need to remove the course because its empty
+            MainActivity.controller.invokeConroller(Controller.NEVER_CREATE_COURSE_VIEWER,this);
+
         }
     }
     @Override
@@ -61,7 +71,6 @@ public class CreateNewCourse extends AppCompatActivity implements IView {
         Button confirmbtn = findViewById(R.id.confirmBtn);
         confirmbtn.setOnClickListener(view -> {
             if(isAnotherShow) {
-                isAnotherShow=false;
                 MainActivity.controller.invokeConroller(Controller.DONE_CREATE_COURSE_ANOTHER_SHOW_VIEWER,this);
             }
             else MainActivity.controller.invokeConroller(Controller.DONE_CREATE_COURSE_VIEWER,this);
@@ -73,7 +82,7 @@ public class CreateNewCourse extends AppCompatActivity implements IView {
     }
     @Override
     public void createNewSlotPane() {
-        Intent intent=new Intent(getApplicationContext(),trying.class);
+        Intent intent=new Intent(getApplicationContext(),CreateSlots.class);
         int numberOfSlots = getNumberOfSlots();
         intent.putExtra("amountOfSlots",numberOfSlots);
         startActivity(intent);

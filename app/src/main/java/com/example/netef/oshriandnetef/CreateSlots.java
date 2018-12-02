@@ -5,11 +5,14 @@ import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.view.Gravity;
+import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
+import android.widget.TextView;
 
 import com.example.netef.oshriandnetef.Classes.Controller;
 import com.example.netef.oshriandnetef.Classes.CourseCheckBox;
@@ -26,26 +29,47 @@ import static android.os.Build.ID;
 import static android.view.View.generateViewId;
 
 public class CreateSlots extends AppCompatActivity implements IView {
+
+    public static final String days[] = {"Sunday", "Monday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday"};
+    public static final Integer hour[] = {8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22};
     public static final int NUMBER_OF_INPUTS_PER_SLOT = 5;
-    private int slotsNumber;
+
+    private int amountOfSlots;
     private SlotInputObjects slotInputObjects [];
+    private LinearLayout linearLayout;
+    private LinearLayout.LayoutParams layoutParams;
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        //remove activivty from the controller before activivty destroy
+        MainActivity.controller.removeViewer(this);
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_create_slots);
+        setContentView(R.layout.activity_trying);
+        MainActivity.controller.addViewer(this);
 
         //get extra data from intent , to assign slots number
         Bundle bundle=getIntent().getExtras();
-        slotsNumber = bundle.getInt("amountOfSlots");
-        slotInputObjects = new SlotInputObjects[slotsNumber];
+        amountOfSlots = bundle.getInt("amountOfSlots");
+        slotInputObjects = new SlotInputObjects[amountOfSlots];
 
-        //User Input
-        EditText roomNumber = findViewById(R.id.roomNumber);
-        EditText lecturerName = findViewById(R.id.lecturerName);
-        
+        //Assigning big layout
+        linearLayout = findViewById(R.id.myLinear);
+
+        //Params declaration
+        layoutParams = new LinearLayout.LayoutParams
+                (LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+
+        //make Slots!
+        makeSlots();
+
         //Buttons
-        Button confirmBtn = findViewById(R.id.confirmBtn);
-        Button createBtn = findViewById(R.id.createBtn);
+        Button confirmBtn = new Button(this);
+        Button createBtn = new Button(this);
         confirmBtn.setOnClickListener(view -> {
             MainActivity.controller.invokeConroller(Controller.DONE_CREATE_SLOTS_VIEWER,this);
         });
@@ -53,34 +77,27 @@ public class CreateSlots extends AppCompatActivity implements IView {
             MainActivity.controller.invokeConroller(Controller.CREATE_ANOTHER_SHOW_VIEWER,this);
         });
 
-        //DropBoxes
-        Spinner chooseDay = findViewById(R.id.chooseDay);
-        Spinner startTime = findViewById(R.id.startTime);
-        Spinner finishTime = findViewById(R.id.finishTime);
 
-        //Variables
-        String days[] = {"Sunday", "Monday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday"};
-        Integer time[] = {8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22};
+        //Confirm button declaration and adding to Big Layout
+        confirmBtn.setId(View.generateViewId());
+        confirmBtn.setText("Confirm");
+        confirmBtn.setTextSize(20);
+        linearLayout.addView(confirmBtn, layoutParams);
 
-        //Adapters
-        ArrayAdapter dayAdapter = new ArrayAdapter(this, android.R.layout.simple_list_item_1, days);
-        ArrayAdapter timeAdapter = new ArrayAdapter(this, android.R.layout.simple_list_item_1, time);
+        //Confirm button declaration and adding to Big Layout
+        createBtn.setId(View.generateViewId());
+        createBtn.setText("Create Another Show");
+        createBtn.setTextSize(20);
+        linearLayout.addView(createBtn, layoutParams);
 
-        //Setting The Adapters
-        chooseDay.setAdapter(dayAdapter);
-        startTime.setAdapter(timeAdapter);
-        finishTime.setAdapter(timeAdapter);
 
-        //TEST !!!! WORKING ONLY WITH ONE SLOT
-        slotInputObjects[0]=new SlotInputObjects();
-        slotInputObjects[0].setDayComboBox(chooseDay);
-        slotInputObjects[0].setFinishTimeComboBox(finishTime);
-        slotInputObjects[0].setStartTimeComboBox(startTime);
-        slotInputObjects[0].setRoomNumber(roomNumber);
-        slotInputObjects[0].setLecturerName(lecturerName);
+
+
+
     }
     @Override
     public void courseMenuPane(){
+        CreateNewCourse.isAnotherShow=false;
         Intent intent = new Intent(getApplicationContext(),MainActivity.class) ;
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         startActivity(intent);
@@ -94,22 +111,16 @@ public class CreateSlots extends AppCompatActivity implements IView {
     }
     @Override
     public String[][] getSlotsInput(){
-        String [][]slotsInput = new String[slotsNumber][NUMBER_OF_INPUTS_PER_SLOT];
+        String [][]slotsInput = new String[amountOfSlots][NUMBER_OF_INPUTS_PER_SLOT];
 
-        //TEST !!!! WORKING ONLY WITH ONE SLOT
-        slotsInput[0][0] = slotInputObjects[0].getDayComboBox().getSelectedItem().toString();
-        slotsInput[0][1] = slotInputObjects[0].getStartTimeComboBox().getSelectedItem().toString();
-        slotsInput[0][2] = slotInputObjects[0].getFinishTimeComboBox().getSelectedItem().toString();
-        slotsInput[0][3] = slotInputObjects[0].getRoomNumber().getText().toString();
-        slotsInput[0][4] = slotInputObjects[0].getLecturerName().getText().toString();
-        //when deleting test , back the bottom lines
-        /*for (int i = 0; i < slotsNumber; i++) {
+
+        for (int i = 0; i < amountOfSlots; i++) {
             slotsInput[i][0] = slotInputObjects[i].getDayComboBox().getSelectedItem().toString();
             slotsInput[i][1] = slotInputObjects[i].getStartTimeComboBox().getSelectedItem().toString();
             slotsInput[i][2] = slotInputObjects[i].getFinishTimeComboBox().getSelectedItem().toString();
             slotsInput[i][3] = slotInputObjects[i].getRoomNumber().getText().toString();
             slotsInput[i][4] = slotInputObjects[i].getLecturerName().getText().toString();
-        }*/
+        }
 
         return slotsInput;
     }
@@ -141,7 +152,80 @@ public class CreateSlots extends AppCompatActivity implements IView {
         slotInputObjects[slotNumber].getRoomNumber().setError("Input must be a number");
     }
 
+    private void makeSlots() {
 
+
+        //Title and prefs
+        TextView title = new TextView(this);
+        title.setText("Create New Slots");
+        title.setTextSize(30);
+        title.setGravity(Gravity.CENTER);
+        linearLayout.addView(title);
+
+        //The slots
+        for (int i = 0; i < amountOfSlots; i++) {
+            slotInputObjects[i]=new SlotInputObjects();
+
+            //Layout declaration
+            LinearLayout spinners = new LinearLayout(this);
+            LinearLayout editTexts = new LinearLayout(this);
+
+            //Centering everything
+            layoutParams.gravity = Gravity.CENTER_HORIZONTAL;
+
+            //Spinner assignment
+            Spinner chooseDay = new Spinner(this);
+            Spinner startTime = new Spinner(this);
+            Spinner finishTime = new Spinner(this);
+            //assign Spinners to data slots
+            slotInputObjects[i].setDayComboBox(chooseDay);
+            slotInputObjects[i].setFinishTimeComboBox(finishTime);
+            slotInputObjects[i].setStartTimeComboBox(startTime);
+
+            //EditText assignment
+            EditText roomNumber = new EditText(this);
+            EditText lecturerName = new EditText(this);
+            //assign EditTexts to data slots
+            slotInputObjects[i].setRoomNumber(roomNumber);
+            slotInputObjects[i].setLecturerName(lecturerName);
+
+            //Spinner layout prefs
+            spinners.setId(View.generateViewId());
+            spinners.setOrientation(LinearLayout.HORIZONTAL);
+
+            //Edit text layout prefs
+            editTexts.setId(View.generateViewId());
+            editTexts.setOrientation(LinearLayout.HORIZONTAL);
+
+            //ArrayAdapters
+            ArrayAdapter dayAdapter = new ArrayAdapter(getApplicationContext(), android.R.layout.simple_list_item_1, days);
+            ArrayAdapter hourAdapter = new ArrayAdapter(getApplicationContext(), android.R.layout.simple_list_item_1, hour);
+
+            //Assigning values to spinners
+            chooseDay.setAdapter(dayAdapter);
+            startTime.setAdapter(hourAdapter);
+            finishTime.setAdapter(hourAdapter);
+
+
+            //Assigning hints
+            roomNumber.setHint("Room Number");
+            lecturerName.setHint("Lecturer Name");
+
+            //Adding GUI elements
+            spinners.addView(chooseDay, layoutParams);
+            spinners.addView(startTime, layoutParams);
+            spinners.addView(finishTime, layoutParams);
+            editTexts.addView(roomNumber, layoutParams);
+            editTexts.addView(lecturerName, layoutParams);
+
+            //Adding everything to the big layout
+            linearLayout.addView(spinners, layoutParams);
+            linearLayout.addView(editTexts, layoutParams);
+        }
+
+
+
+    }
 
 
     //UNUSED METHODS

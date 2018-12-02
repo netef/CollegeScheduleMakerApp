@@ -1,5 +1,6 @@
 package com.example.netef.oshriandnetef.Classes;
 
+import com.example.netef.oshriandnetef.CreateNewCourse;
 import com.example.netef.oshriandnetef.Tests.TestScheduleInsert;
 
 import java.util.ArrayList;
@@ -34,6 +35,7 @@ public class Controller implements IController {
     public static final String SCHEDULE_BUTTON_UNACTIVE_MODEL = "schedule button is changed to unactive MODEL";
     public static final String SCHEDULE_BUTTON_ACTIVE_MODEL = "schedule button is changed to active MODEL";
     public static final String DONE_CREATE_COURSE_ANOTHER_SHOW_VIEWER ="Another show created" ;
+    public static final String NEVER_CREATE_COURSE_VIEWER ="NEVER CREATE COURSE";
 
     private IView viewer;
     private ArrayList<IView> viewers;
@@ -68,7 +70,11 @@ public class Controller implements IController {
             createNewCourse(viewer);
         } else if (e.getMsg().equals(DONE_CREATE_COURSE_MODEL)) {
             viewer.createNewSlotPane();
-        }  else if (e.getMsg().equals(DONE_CREATE_SLOTS_VIEWER)) {
+        } else if (e.getMsg().equals(NEVER_CREATE_COURSE_VIEWER)) {
+            //remove course by course ID
+           model.removeCourse(viewer.getCourseInput()[0]);
+        }
+        else if (e.getMsg().equals(DONE_CREATE_SLOTS_VIEWER)) {
             createNewShow(viewer);
         } else if (e.getMsg().equals(DONE_CREATE_COURSE_ANOTHER_SHOW_VIEWER)) {
             viewer.createNewSlotPane();
@@ -138,6 +144,11 @@ public class Controller implements IController {
     private void createAnotherShow(IView source) {
         model.createAnotherShow(source.getSlotsInput());
 
+    }
+
+    @Override
+    public void removeViewer(IView viewer) {
+        viewers.remove(viewer);
     }
 
     private void createNewShow(IView source) {

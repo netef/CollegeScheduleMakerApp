@@ -19,6 +19,14 @@ import java.util.ArrayList;
 public class MainActivity extends AppCompatActivity implements IView {
     public static Controller controller;
     private static boolean firstRun=true;
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        //remove activivty from the controller before activivty destroy
+        MainActivity.controller.removeViewer(this);
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

@@ -38,4 +38,6 @@ public interface IModel {
 
 
     ICourse lastCratedCourse();
+
+    void removeCourse(String s);
 }
