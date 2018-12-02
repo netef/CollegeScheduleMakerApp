@@ -73,7 +73,7 @@ public class CreateNewCourse extends AppCompatActivity implements IView {
     }
     @Override
     public void createNewSlotPane() {
-        Intent intent=new Intent(getApplicationContext(),CreateSlots.class);
+        Intent intent=new Intent(getApplicationContext(),trying.class);
         int numberOfSlots = getNumberOfSlots();
         intent.putExtra("amountOfSlots",numberOfSlots);
         startActivity(intent);

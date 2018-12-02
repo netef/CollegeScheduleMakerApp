@@ -8,6 +8,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.Spinner;
 
 import com.example.netef.oshriandnetef.Classes.Controller;
@@ -21,6 +22,9 @@ import com.example.netef.oshriandnetef.Classes.SlotInputObjects;
 
 import java.util.ArrayList;
 
+import static android.os.Build.ID;
+import static android.view.View.generateViewId;
+
 public class CreateSlots extends AppCompatActivity implements IView {
     public static final int NUMBER_OF_INPUTS_PER_SLOT = 5;
     private int slotsNumber;
@@ -29,6 +33,7 @@ public class CreateSlots extends AppCompatActivity implements IView {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_slots);
+
         //get extra data from intent , to assign slots number
         Bundle bundle=getIntent().getExtras();
         slotsNumber = bundle.getInt("amountOfSlots");
@@ -37,7 +42,7 @@ public class CreateSlots extends AppCompatActivity implements IView {
         //User Input
         EditText roomNumber = findViewById(R.id.roomNumber);
         EditText lecturerName = findViewById(R.id.lecturerName);
-
+        
         //Buttons
         Button confirmBtn = findViewById(R.id.confirmBtn);
         Button createBtn = findViewById(R.id.createBtn);

@@ -22,7 +22,7 @@
 
     <Button
         android:id="@+id/createBtn"
-        android:layout_width="147dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="125dp"
         android:layout_marginTop="100dp"
@@ -32,5 +32,13 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         android:background="@drawable/my_button_bg"/>
+
+    <Button
+        android:id="@+id/tryingBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Oshri Click Me"
+        android:layout_gravity="center"
+        android:layout_marginTop="100dp"/>
 
 </LinearLayout>

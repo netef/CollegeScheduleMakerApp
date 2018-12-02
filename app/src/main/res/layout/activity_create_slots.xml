@@ -2,6 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/Layout1"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
@@ -22,8 +23,8 @@
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:layout_gravity="center">
+        android:layout_gravity="center"
+        android:layout_marginTop="10dp">
 
         <Spinner
             android:id="@+id/chooseDay"
@@ -60,8 +61,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:hint="Room Number"
-            android:inputType="textPersonName"
-            />
+            android:inputType="textPersonName" />
 
         <EditText
             android:id="@+id/lecturerName"
@@ -69,8 +69,7 @@
             android:layout_height="wrap_content"
             android:layout_marginEnd="8dp"
             android:hint="Lecturer Name"
-            android:inputType="textPersonName"
-            />
+            android:inputType="textPersonName" />
 
     </LinearLayout>
 
@@ -79,11 +78,11 @@
         android:id="@+id/confirmBtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_gravity="center"
         android:layout_marginTop="10dp"
-       android:layout_gravity="center"
+        android:background="@drawable/my_button_bg"
         android:text="Confirm"
-        android:textSize="20sp"
-        android:background="@drawable/my_button_bg"/>
+        android:textSize="20sp" />
 
     <Button
         android:id="@+id/createBtn"
@@ -91,8 +90,8 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:layout_marginTop="10dp"
+        android:background="@drawable/my_button_bg"
         android:text="Create Another Show"
-        android:textSize="20sp"
-        android:background="@drawable/my_button_bg"/>
+        android:textSize="20sp" />
 
 </LinearLayout>

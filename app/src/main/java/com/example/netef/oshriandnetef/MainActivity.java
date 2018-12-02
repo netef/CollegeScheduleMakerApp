@@ -31,6 +31,12 @@ public class MainActivity extends AppCompatActivity implements IView {
         }
         Button createBtn = findViewById(R.id.createBtn);
         Button scheduleBtn = findViewById(R.id.scheduleBtn);
+        Button tryingBtn = findViewById(R.id.tryingBtn);
+
+        tryingBtn.setOnClickListener(v -> {
+            Intent intent = new Intent(getApplicationContext(), trying.class);
+            startActivity(intent);
+        });
 
         createBtn.setOnClickListener(v -> {
             controller.invokeConroller(Controller.CREATE_COURSE_VIEWER,this);
