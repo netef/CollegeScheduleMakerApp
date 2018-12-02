@@ -1,8 +1,6 @@
 package com.example.netef.oshriandnetef;
 
 import android.content.Intent;
-import android.graphics.Color;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Gravity;
@@ -25,9 +23,6 @@ import com.example.netef.oshriandnetef.Classes.SlotInputObjects;
 
 import java.util.ArrayList;
 
-import static android.os.Build.ID;
-import static android.view.View.generateViewId;
-
 public class CreateSlots extends AppCompatActivity implements IView {
 
     public static final String days[] = {"Sunday", "Monday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday"};
@@ -49,7 +44,7 @@ public class CreateSlots extends AppCompatActivity implements IView {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_trying);
+        setContentView(R.layout.activity_create_slots);
         MainActivity.controller.addViewer(this);
 
         //get extra data from intent , to assign slots number

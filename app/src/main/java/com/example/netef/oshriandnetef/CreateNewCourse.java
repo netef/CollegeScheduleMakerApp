@@ -34,6 +34,8 @@ public class CreateNewCourse extends AppCompatActivity implements IView {
         super.onDestroy();
         //remove activivty from the controller before activivty destroy
         MainActivity.controller.removeViewer(this);
+        //reset isAnotherShow to defualt
+        isAnotherShow=false;
     }
     @Override
     public void onResume()

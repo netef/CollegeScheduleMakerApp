@@ -2,96 +2,10 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/Layout1"
+    android:id="@+id/myLinear"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context=".CreateSlots">
-
-    <TextView
-        android:id="@+id/Label1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_marginTop="40dp"
-        android:layout_marginEnd="8dp"
-        android:text="Creating New Slots"
-        android:textSize="30sp">
-
-    </TextView>
-
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_marginTop="10dp">
-
-        <Spinner
-            android:id="@+id/chooseDay"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
-
-        </Spinner>
-
-        <Spinner
-            android:id="@+id/startTime"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
-
-        </Spinner>
-
-        <Spinner
-            android:id="@+id/finishTime"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:layout_constraintEnd_toEndOf="parent">
-
-        </Spinner>
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_marginTop="10dp">
-
-        <EditText
-            android:id="@+id/roomNumber"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:hint="Room Number"
-            android:inputType="textPersonName" />
-
-        <EditText
-            android:id="@+id/lecturerName"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="8dp"
-            android:hint="Lecturer Name"
-            android:inputType="textPersonName" />
-
-    </LinearLayout>
-
-
-    <Button
-        android:id="@+id/confirmBtn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_marginTop="10dp"
-        android:background="@drawable/my_button_bg"
-        android:text="Confirm"
-        android:textSize="20sp" />
-
-    <Button
-        android:id="@+id/createBtn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_marginTop="10dp"
-        android:background="@drawable/my_button_bg"
-        android:text="Create Another Show"
-        android:textSize="20sp" />
 
 </LinearLayout>
