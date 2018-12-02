@@ -23,6 +23,7 @@
             android:name=".Schedule"
             android:label="@string/title_activity_schedule"
             android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".CalendarActivity"></activity>
     </application>
 
 </manifest>

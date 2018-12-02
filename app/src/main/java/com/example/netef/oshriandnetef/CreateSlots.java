@@ -1,6 +1,8 @@
 package com.example.netef.oshriandnetef;
 
 import android.content.Intent;
+import android.graphics.Typeface;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Gravity;
@@ -59,12 +61,37 @@ public class CreateSlots extends AppCompatActivity implements IView {
         layoutParams = new LinearLayout.LayoutParams
                 (LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
 
+        //Centering everything
+        layoutParams.gravity = Gravity.CENTER_HORIZONTAL;
+
+        //Creating spaces
+        layoutParams.setMargins(0,0,0,5);
+
         //make Slots!
         makeSlots();
 
         //Buttons
         Button confirmBtn = new Button(this);
         Button createBtn = new Button(this);
+
+        //Buttons background
+        confirmBtn.setBackgroundResource(R.drawable.my_button_bg);
+        createBtn.setBackgroundResource(R.drawable.my_button_bg);
+
+        //Buttons padding
+        confirmBtn.setPadding(30,0,30,0);
+        createBtn.setPadding(30,0,30,0);
+
+        //Buttons text size
+        confirmBtn.setTextSize(18);
+        createBtn.setTextSize(18);
+
+        //Buttons fonts
+        confirmBtn.setTypeface(Typeface.SERIF);
+        createBtn.setTypeface(Typeface.SERIF);
+
+
+
         confirmBtn.setOnClickListener(view -> {
             MainActivity.controller.invokeConroller(Controller.DONE_CREATE_SLOTS_VIEWER,this);
         });
@@ -149,7 +176,6 @@ public class CreateSlots extends AppCompatActivity implements IView {
 
     private void makeSlots() {
 
-
         //Title and prefs
         TextView title = new TextView(this);
         title.setText("Create New Slots");
@@ -164,9 +190,6 @@ public class CreateSlots extends AppCompatActivity implements IView {
             //Layout declaration
             LinearLayout spinners = new LinearLayout(this);
             LinearLayout editTexts = new LinearLayout(this);
-
-            //Centering everything
-            layoutParams.gravity = Gravity.CENTER_HORIZONTAL;
 
             //Spinner assignment
             Spinner chooseDay = new Spinner(this);
@@ -217,9 +240,6 @@ public class CreateSlots extends AppCompatActivity implements IView {
             linearLayout.addView(spinners, layoutParams);
             linearLayout.addView(editTexts, layoutParams);
         }
-
-
-
     }
 
 
