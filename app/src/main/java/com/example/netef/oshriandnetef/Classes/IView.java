@@ -27,13 +27,15 @@ public interface IView {
 
     //4
     int getInvokingDayNumber();
+    //COURSES CHECKBOXES METHODS
     CourseCheckBox getInvokingCourseCheckboxes();
     void disableCoursesCBByDay(ArrayList<ICourse> impossibleCourses, int invokingDayNumber);
     void ableCoursesCBByDay(ArrayList<ICourse> impossibleCourses, int invokingDayNumber);
     void disableCoursesCBByHour(ArrayList<ICourse> impossibleCourses);
     void ableCoursesCBByHour(ArrayList<ICourse> impossibleCourses);
-    void deactiveCollorButton(ScheduleButton button);
     void disableAndEnableCoursesCB(ArrayList<ICourse> impossibleCourses);
+    //SCHEDULE BUTTONS METHODS
+    void deactiveCollorButton(ScheduleButton button);
     void addSlotTOschedule(ISlot[] iSlots);
     void removeSlotFromschedule(ISlot[] inokedSlots);
     void changeColumnToDeactiveColor(int coulmn);
