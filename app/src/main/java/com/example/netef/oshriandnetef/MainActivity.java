@@ -49,7 +49,7 @@ public class MainActivity extends AppCompatActivity implements IView {
     }
 
     @Override
-    public void scheduleMakerPane(ICourse[] coursesName) {
+    public void scheduleMakerPane() {
         Intent intent = new Intent(getApplicationContext(), trying.class);
         startActivity(intent);
     }
@@ -193,6 +193,10 @@ public class MainActivity extends AppCompatActivity implements IView {
         return null;
     }
 
+    @Override
+    public void setCourses(ICourse[] allCoursesForViewer) {
+
+    }
 
 
 }

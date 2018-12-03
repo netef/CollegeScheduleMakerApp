@@ -27,7 +27,7 @@ import java.util.ArrayList;
 
 public class CreateSlots extends AppCompatActivity implements IView {
 
-    public static final String days[] = {"Sunday", "Monday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday"};
+    public static final String days[] = {"Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday"};
     public static final Integer hour[] = {8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22};
     public static final int NUMBER_OF_INPUTS_PER_SLOT = 5;
 
@@ -252,7 +252,7 @@ public class CreateSlots extends AppCompatActivity implements IView {
     }
 
     @Override
-    public void scheduleMakerPane(ICourse[] coursesName) {
+    public void scheduleMakerPane() {
 
     }
 
@@ -350,6 +350,11 @@ public class CreateSlots extends AppCompatActivity implements IView {
     @Override
     public IHour getButtonInvoke() {
         return null;
+    }
+
+    @Override
+    public void setCourses(ICourse[] allCoursesForViewer) {
+
     }
 
 }

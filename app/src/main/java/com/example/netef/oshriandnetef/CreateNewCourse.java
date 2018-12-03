@@ -130,14 +130,17 @@ public class CreateNewCourse extends AppCompatActivity implements IView {
     public void createNewCoursePane() {
 
     }
+
+    @Override
+    public void scheduleMakerPane() {
+
+    }
+
     @Override
     public void createNewShowPane(int courseCode,String courseName){
 
     }
-    @Override
-    public void scheduleMakerPane(ICourse[] coursesName) {
 
-    }
 
     @Override
     public void courseMenuPane() {
@@ -233,6 +236,11 @@ public class CreateNewCourse extends AppCompatActivity implements IView {
     @Override
     public IHour getButtonInvoke() {
         return null;
+    }
+
+    @Override
+    public void setCourses(ICourse[] allCoursesForViewer) {
+
     }
 
 

@@ -7,7 +7,7 @@ public interface IView {
 
     //MainActivity
     void createNewCoursePane();
-    void scheduleMakerPane(ICourse[] coursesName);
+    void scheduleMakerPane();
     //CreateNewCourse
     void createNewSlotPane();
     void courseCodeException();
@@ -42,7 +42,5 @@ public interface IView {
     void changeColumnToActiveColor(int coulmn);
     IHour getButtonInvoke();
 
-
-
-
+    void setCourses(ICourse[] allCoursesForViewer);
 }

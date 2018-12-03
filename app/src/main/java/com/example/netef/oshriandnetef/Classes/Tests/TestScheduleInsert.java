@@ -1,4 +1,4 @@
-package com.example.netef.oshriandnetef.Tests;
+package com.example.netef.oshriandnetef.Classes.Tests;
 
 //import org.junit.Test;
 //import static org.junit.Assert.*;

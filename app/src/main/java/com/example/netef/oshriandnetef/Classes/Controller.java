@@ -1,7 +1,6 @@
 package com.example.netef.oshriandnetef.Classes;
 
-import com.example.netef.oshriandnetef.CreateNewCourse;
-import com.example.netef.oshriandnetef.Tests.TestScheduleInsert;
+import com.example.netef.oshriandnetef.Classes.Tests.TestScheduleInsert;
 
 import java.util.ArrayList;
 
@@ -34,8 +33,10 @@ public class Controller implements IController {
     public static final String CREATE_ANOTHER_SHOW_MODEL = "create another show model";
     public static final String SCHEDULE_BUTTON_UNACTIVE_MODEL = "schedule button is changed to unactive MODEL";
     public static final String SCHEDULE_BUTTON_ACTIVE_MODEL = "schedule button is changed to active MODEL";
+    public static final String CREATE_SCHEDULE_VIEWER = "Create schedule viewer";
     public static final String DONE_CREATE_COURSE_ANOTHER_SHOW_VIEWER ="Another show created" ;
     public static final String NEVER_CREATE_COURSE_VIEWER ="NEVER CREATE COURSE";
+
 
     private IView viewer;
     private ArrayList<IView> viewers;
@@ -89,51 +90,75 @@ public class Controller implements IController {
         } else if (e.getMsg().equals(COURSE_NAME_ALREADY_EXIST_ERROR)) {
 
             viewer.courseNameException();
-
-        } else if (e.getMsg().equals(TIMING_ERROR)) {
+        }
+        else if (e.getMsg().equals(TIMING_ERROR)) {
             viewer.slotTimingException(model.getIvokingSlotNumber());
-        } else if (e.getMsg().equals(ROOM_FULL_EROOR)) {
+        }
+        else if (e.getMsg().equals(ROOM_FULL_EROOR)) {
             viewer.roomFullException(model.getIvokingSlotNumber());
-        } else if (e.getMsg().equals(TEACHER_ALREADY_TEACHING_ERROR)) {
+        }
+        else if (e.getMsg().equals(TEACHER_ALREADY_TEACHING_ERROR)) {
             viewer.teacherTeachingException(model.getIvokingSlotNumber());
-        } else if (e.getMsg().equals(ROOM_INPUT_ISNT_INTEGER)) {
+        }
+        else if (e.getMsg().equals(ROOM_INPUT_ISNT_INTEGER)) {
             viewer.roomInputIsntAint(model.getIvokingSlotNumber());
-        } else if (e.getMsg().equals(DONE_CREATE_ALL_COURSES_VIEWER)) {
-            //ONLY FOR TEST !!
-            viewer.scheduleMakerPane(model.getAllCoursesForViewer());
-        } else if (e.getMsg().equals(DAY_CHECKBOX_ACTIVATED_VIEWER)) {
+        }
+        else if (e.getMsg().equals(DONE_CREATE_ALL_COURSES_VIEWER)) {
+            //maybe need to throw exception on the model
+            model.getAllCoursesForViewer();
+            viewer.scheduleMakerPane();
+        }
+        else if (e.getMsg().equals(CREATE_SCHEDULE_VIEWER)) {
+
+            viewer.setCourses(model.getAllCoursesForViewer());
+        }
+        else if (e.getMsg().equals(DAY_CHECKBOX_ACTIVATED_VIEWER)) {
             model.addPossibleShowsByDay(viewer.getInvokingDayNumber());
-        } else if (e.getMsg().equals(DAY_CHECKBOX_ACTIVATED_MODEL)) {
+        }
+        else if (e.getMsg().equals(DAY_CHECKBOX_ACTIVATED_MODEL)) {
             viewer.changeColumnToActiveColor(viewer.getInvokingDayNumber());
             viewer.ableCoursesCBByDay(model.getImpossibleCourses(), viewer.getInvokingDayNumber());
-        } else if (e.getMsg().equals(DAY_CHECKBOX_DEACTIVATED_VIEWER)) {
+        }
+        else if (e.getMsg().equals(DAY_CHECKBOX_DEACTIVATED_VIEWER)) {
             model.removeShowsByDay(viewer.getInvokingDayNumber());
-        } else if (e.getMsg().equals(DAY_CHECKBOX_DEACTIVATED_MODEL)) {
+        }
+        else if (e.getMsg().equals(DAY_CHECKBOX_DEACTIVATED_MODEL)) {
             viewer.changeColumnToDeactiveColor(viewer.getInvokingDayNumber());
             viewer.disableCoursesCBByDay(model.getImpossibleCourses(), viewer.getInvokingDayNumber());
-        } else if (e.getMsg().equals(COURSE_CHECKBOX_ACTIVATED)) {
+        }
+        else if (e.getMsg().equals(COURSE_CHECKBOX_ACTIVATED)) {
             model.addCourseToSchedule(viewer.getInvokingCourseCheckboxes());
 
-        } else if (e.getMsg().equals(COURSE_ADDED_TO_SCHEDULE)) {
+        }
+        else if (e.getMsg().equals(COURSE_ADDED_TO_SCHEDULE)) {
             viewer.addSlotTOschedule(model.getInokedSlots());
             viewer.disableAndEnableCoursesCB(model.getImpossibleCourses());
-        } else if (e.getMsg().equals(COURSE_REMOVED_FROM_SCHEDULE)) {
+        }
+        else if (e.getMsg().equals(COURSE_REMOVED_FROM_SCHEDULE)) {
             viewer.removeSlotFromschedule(model.getInokedSlots());
             viewer.disableAndEnableCoursesCB(model.getImpossibleCourses());
-        } else if (e.getMsg().equals(COURSE_CHECKBOX_DEACTIVATED)) {
+        }
+        else if (e.getMsg().equals(COURSE_CHECKBOX_DEACTIVATED)) {
 
             model.removeCourseFromSchedule(viewer.getInvokingCourseCheckboxes());
-        } else if (e.getMsg().equals(SCHEDULE_BUTTON_UNACTIVE_VIEWER)) {
+        }
+        else if (e.getMsg().equals(SCHEDULE_BUTTON_UNACTIVE_VIEWER)) {
             model.removeShowsByHour(viewer.getButtonInvoke());
-        } else if (e.getMsg().equals(SCHEDULE_BUTTON_UNACTIVE_MODEL)) {
+        }
+        else if (e.getMsg().equals(SCHEDULE_BUTTON_UNACTIVE_MODEL)) {
             viewer.disableCoursesCBByHour(model.getImpossibleCourses());
-        } else if (e.getMsg().equals(SCHEDULE_BUTTON_ACTIVE_VIEWER)) {
+        }
+        else if (e.getMsg().equals(SCHEDULE_BUTTON_ACTIVE_VIEWER)) {
+
             model.addPossibleShowsByHour(viewer.getButtonInvoke());
-        } else if (e.getMsg().equals(SCHEDULE_BUTTON_ACTIVE_MODEL)) {
+        }
+        else if (e.getMsg().equals(SCHEDULE_BUTTON_ACTIVE_MODEL)) {
             viewer.ableCoursesCBByHour(model.getImpossibleCourses());
-        } else if (e.getMsg().equals(CREATE_ANOTHER_SHOW_VIEWER)) {
+        }
+        else if (e.getMsg().equals(CREATE_ANOTHER_SHOW_VIEWER)) {
             createAnotherShow(viewer);
-        } else if (e.getMsg().equals(CREATE_ANOTHER_SHOW_MODEL)) {
+        }
+        else if (e.getMsg().equals(CREATE_ANOTHER_SHOW_MODEL)) {
             //Fetching last created course from model , because the creadet new show is from the same course
             ICourse course=model.lastCratedCourse();
             viewer.createNewShowPane(course.getCourseCode(),course.getCourseName());

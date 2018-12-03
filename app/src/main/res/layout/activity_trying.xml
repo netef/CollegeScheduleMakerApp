@@ -7,7 +7,12 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context=".trying">
+    <TableLayout
+        android:id="@+id/tableCourses"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
 
+    </TableLayout>
     <ScrollView
         android:id="@+id/scroll"
         android:layout_width="match_parent"
@@ -17,7 +22,6 @@
             android:id="@+id/table"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
-
 
         </TableLayout>
 
