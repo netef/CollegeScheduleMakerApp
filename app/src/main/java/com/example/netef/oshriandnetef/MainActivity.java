@@ -50,7 +50,7 @@ public class MainActivity extends AppCompatActivity implements IView {
 
     @Override
     public void scheduleMakerPane() {
-        Intent intent = new Intent(getApplicationContext(), trying.class);
+        Intent intent = new Intent(getApplicationContext(), WeekViewAPI.class);
         startActivity(intent);
     }
     @Override
