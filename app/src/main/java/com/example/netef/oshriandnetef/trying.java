@@ -50,6 +50,21 @@ public class trying extends AppCompatActivity implements IView {
         LinearLayout.LayoutParams tlp = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
         days.setLayoutParams(tlp);
 
+
+        TableLayout table = findViewById(R.id.table);
+        setupMainScheduleTable(table);
+        tableCourses=findViewById(R.id.tableCourses);
+        //uncomment to see courses CB
+        //MainActivity.controller.invokeConroller(Controller.CREATE_SCHEDULE_VIEWER,this);
+
+        setupDays(linear,days);
+        
+        table.setShrinkAllColumns(true);
+
+    }
+
+    private void setupDays(LinearLayout linear,LinearLayout days) {
+        //init days
         TextView sunday = new TextView(this);
         TextView monday = new TextView(this);
         TextView tuesday = new TextView(this);
@@ -57,16 +72,6 @@ public class trying extends AppCompatActivity implements IView {
         TextView thursday = new TextView(this);
         TextView friday = new TextView(this);
         TextView saturday = new TextView(this);
-
-
-        TableLayout table = findViewById(R.id.table);
-        tableCourses=findViewById(R.id.tableCourses);
-        MainActivity.controller.invokeConroller(Controller.CREATE_SCHEDULE_VIEWER,this);
-
-        TableRow.LayoutParams lp = new TableRow.LayoutParams(TableRow.LayoutParams.WRAP_CONTENT, TableLayout.LayoutParams.WRAP_CONTENT);
-
-
-
         //days specification
         sunday.setText("Sun");
         sunday.setPadding(100,0,95,0);
@@ -81,6 +86,7 @@ public class trying extends AppCompatActivity implements IView {
         friday.setText("Fri");
 
         //add days to linear layout
+
         days.addView(sunday);
         days.addView(monday);
         days.addView(tuesday);
@@ -89,9 +95,12 @@ public class trying extends AppCompatActivity implements IView {
         days.addView(friday);
 
         linear.addView(days, 1);
+    }
 
-
+    private void setupMainScheduleTable(TableLayout table) {
         scheduleButtons = new ScheduleButton[6][LAST_HOUR_OF_SCHEDULE - INITIAL_HOUR_OF_SCHEDULE];
+        TableRow.LayoutParams lp = new TableRow.LayoutParams(TableRow.LayoutParams.WRAP_CONTENT, TableLayout.LayoutParams.WRAP_CONTENT);
+        LinearLayout.LayoutParams tlp = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
         for (int i = 0; i < LAST_HOUR_OF_SCHEDULE - INITIAL_HOUR_OF_SCHEDULE; i++) {
             CheckBox checkBox = new CheckBox(this);
             checkBox.setText("" + (i+INITIAL_HOUR_OF_SCHEDULE));
@@ -119,9 +128,6 @@ public class trying extends AppCompatActivity implements IView {
             }
             table.addView(row, tlp);
         }
-        scheduleButtons[2][4].getButton().setText("wow213sad");
-        table.setShrinkAllColumns(true);
-
     }
 
     @Override
