@@ -2,12 +2,20 @@ package com.example.netef.oshriandnetef;
 
 import android.graphics.Color;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
+import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.Snackbar;
 import android.view.Gravity;
 import android.view.View;
+import android.support.design.widget.NavigationView;
+import android.support.v4.view.GravityCompat;
+import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBarDrawerToggle;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.widget.Button;
 import android.widget.CheckBox;
-import android.widget.FrameLayout;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
@@ -23,7 +31,9 @@ import com.example.netef.oshriandnetef.Classes.ScheduleButton;
 import java.util.ArrayList;
 import java.util.Iterator;
 
-public class trying extends AppCompatActivity implements IView {
+public class Schedule extends AppCompatActivity
+        implements NavigationView.OnNavigationItemSelectedListener, IView {
+
 
     public static final int SHOWS_PER_ROW = 3;
     public static final int INITIAL_HOUR_OF_SCHEDULE = 8;
@@ -33,10 +43,29 @@ public class trying extends AppCompatActivity implements IView {
     private TableLayout tableCourses;
     private CourseCheckBox[] coursesCheckboxes;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_trying);
+        setContentView(R.layout.activity_schedule);
+        Toolbar toolbar =  findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+
+
+        //Changes are made in activity_Schedule_drawer
+        //If you want to edit the listeners go to the onNavigationItemSelected() method
+
+        DrawerLayout drawer =  findViewById(R.id.drawer_layout);
+        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
+                this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+        drawer.addDrawerListener(toggle);
+        toggle.syncState();
+
+        NavigationView navigationView =  findViewById(R.id.nav_view);
+        navigationView.setNavigationItemSelectedListener(this);
+
+
+
 
         TableLayout table = findViewById(R.id.table);
         setupMainScheduleTable(table);
@@ -47,7 +76,9 @@ public class trying extends AppCompatActivity implements IView {
 
         table.setShrinkAllColumns(true);
 
+
     }
+
 
 
 
@@ -126,6 +157,68 @@ public class trying extends AppCompatActivity implements IView {
             table.addView(row);
             table.setStretchAllColumns(true);
         }
+    }
+
+
+
+
+
+
+
+
+    @Override
+    public void onBackPressed() {
+        DrawerLayout drawer = findViewById(R.id.drawer_layout);
+        if (drawer.isDrawerOpen(GravityCompat.START)) {
+            drawer.closeDrawer(GravityCompat.START);
+        } else {
+            super.onBackPressed();
+        }
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.schedule, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle action bar item clicks here. The action bar will
+        // automatically handle clicks on the Home/Up button, so long
+        // as you specify a parent activity in AndroidManifest.xml.
+        int id = item.getItemId();
+
+        //noinspection SimplifiableIfStatement
+        if (id == R.id.action_settings) {
+            return true;
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
+
+    @SuppressWarnings("StatementWithEmptyBody")
+    @Override
+    public boolean onNavigationItemSelected(MenuItem item) {
+        // Handle navigation view item clicks here.
+        int id = item.getItemId();
+
+        if (id == R.id.java) {
+            // Handle the camera action
+        } else if (id == R.id.cpp) {
+
+        } else if (id == R.id.linux) {
+
+        } else if (id == R.id.python) {
+
+        }
+
+        //add this if you want to close the drawer after you click
+
+        //DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        //drawer.closeDrawer(GravityCompat.START);
+        return true;
     }
 
     @Override
@@ -327,5 +420,4 @@ public class trying extends AppCompatActivity implements IView {
     public IHour getButtonInvoke() {
         return null;
     }
-
 }
