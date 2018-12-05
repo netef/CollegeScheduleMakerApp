@@ -19,10 +19,6 @@
         <activity android:name=".CreateNewCourse" />
         <activity android:name=".CreateSlots" />
         <activity android:name=".Schedule2" />
-        <activity
-            android:name=".Schedule"
-            android:label="@string/title_activity_schedule"
-            android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".trying"></activity>
     </application>
 

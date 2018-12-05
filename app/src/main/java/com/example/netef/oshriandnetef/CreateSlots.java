@@ -216,8 +216,8 @@ public class CreateSlots extends AppCompatActivity implements IView {
             editTexts.setOrientation(LinearLayout.HORIZONTAL);
 
             //ArrayAdapters
-            ArrayAdapter dayAdapter = new ArrayAdapter(getApplicationContext(), android.R.layout.simple_list_item_1, days);
-            ArrayAdapter hourAdapter = new ArrayAdapter(getApplicationContext(), android.R.layout.simple_list_item_1, hour);
+            ArrayAdapter dayAdapter = new ArrayAdapter(getApplicationContext(), android.R.layout.simple_spinner_dropdown_item, days);
+            ArrayAdapter hourAdapter = new ArrayAdapter(getApplicationContext(), android.R.layout.simple_spinner_dropdown_item, hour);
 
             //Assigning values to spinners
             chooseDay.setAdapter(dayAdapter);

@@ -1,20 +1,17 @@
 package com.example.netef.oshriandnetef;
 
 import android.graphics.Color;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
-import android.widget.EditText;
-import android.widget.LinearLayout;
-import android.widget.ScrollView;
+import android.widget.FrameLayout;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
 
-import com.example.netef.oshriandnetef.Classes.Controller;
 import com.example.netef.oshriandnetef.Classes.CourseCheckBox;
 import com.example.netef.oshriandnetef.Classes.ICourse;
 import com.example.netef.oshriandnetef.Classes.IDay;
@@ -23,8 +20,6 @@ import com.example.netef.oshriandnetef.Classes.ISlot;
 import com.example.netef.oshriandnetef.Classes.IView;
 import com.example.netef.oshriandnetef.Classes.ScheduleButton;
 
-import org.w3c.dom.Text;
-
 import java.util.ArrayList;
 import java.util.Iterator;
 
@@ -32,7 +27,8 @@ public class trying extends AppCompatActivity implements IView {
 
     public static final int SHOWS_PER_ROW = 3;
     public static final int INITIAL_HOUR_OF_SCHEDULE = 8;
-    public static final int LAST_HOUR_OF_SCHEDULE = 22;
+    public static final int LAST_HOUR_OF_SCHEDULE = 23;
+
     private ScheduleButton[][] scheduleButtons;
     private TableLayout tableCourses;
     private CourseCheckBox[] coursesCheckboxes;
@@ -42,51 +38,59 @@ public class trying extends AppCompatActivity implements IView {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_trying);
 
-
-
-        LinearLayout linear = findViewById(R.id.linear);
-        LinearLayout days = new LinearLayout(this);
-
-        LinearLayout.LayoutParams tlp = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
-        days.setLayoutParams(tlp);
-
+        FrameLayout frame = findViewById(R.id.frame);
 
         TableLayout table = findViewById(R.id.table);
         setupMainScheduleTable(table);
-        tableCourses=findViewById(R.id.tableCourses);
+        tableCourses = findViewById(R.id.tableCourses);
         //uncomment to see courses CB
         //MainActivity.controller.invokeConroller(Controller.CREATE_SCHEDULE_VIEWER,this);
 
-        setupDays(linear,days);
-        
+
         table.setShrinkAllColumns(true);
 
     }
 
-    private void setupDays(LinearLayout linear,LinearLayout days) {
-        //init days
-        TextView sunday = new TextView(this);
-        TextView monday = new TextView(this);
-        TextView tuesday = new TextView(this);
-        TextView wednesday = new TextView(this);
-        TextView thursday = new TextView(this);
-        TextView friday = new TextView(this);
-        TextView saturday = new TextView(this);
-        //days specification
-        sunday.setText("Sun");
-        sunday.setPadding(100,0,95,0);
-        monday.setText("Mon");
-        monday.setPadding(0,0,95,0);
-        tuesday.setText("Tue");
-        tuesday.setPadding(0,0,95,0);
-        wednesday.setText("Wed");
-        wednesday.setPadding(0,0,95,0);
-        thursday.setText("Thu");
-        thursday.setPadding(0,0,95,0);
-        friday.setText("Fri");
 
-        //add days to linear layout
 
+    private void setupMainScheduleTable(TableLayout table) {
+        scheduleButtons = new ScheduleButton[6][LAST_HOUR_OF_SCHEDULE - INITIAL_HOUR_OF_SCHEDULE];
+        TableRow.LayoutParams lp = new TableRow.LayoutParams(TableRow.LayoutParams.WRAP_CONTENT, TableLayout.LayoutParams.WRAP_CONTENT);
+        TableRow days = new TableRow(this);
+        TableLayout.LayoutParams layoutParams = new TableLayout.LayoutParams(TableLayout.LayoutParams.MATCH_PARENT, TableLayout.LayoutParams.WRAP_CONTENT);
+
+        Button space = new Button(this);
+        Button sunday = new Button(this);
+        Button monday = new Button(this);
+        Button tuesday = new Button(this);
+        Button wednesday = new Button(this);
+        Button thursday = new Button(this);
+        Button friday = new Button(this);
+
+        space.setVisibility(View.INVISIBLE);
+        sunday.setText("S");
+        monday.setText("M");
+        tuesday.setText("T");
+        wednesday.setText("W");
+        thursday.setText("T");
+        friday.setText("F");
+
+        sunday.setBackgroundColor(Color.TRANSPARENT);
+        monday.setBackgroundColor(Color.TRANSPARENT);
+        tuesday.setBackgroundColor(Color.TRANSPARENT);
+        wednesday.setBackgroundColor(Color.TRANSPARENT);
+        thursday.setBackgroundColor(Color.TRANSPARENT);
+        friday.setBackgroundColor(Color.TRANSPARENT);
+
+        sunday.setTextSize(20);
+        monday.setTextSize(20);
+        tuesday.setTextSize(20);
+        wednesday.setTextSize(20);
+        thursday.setTextSize(20);
+        friday.setTextSize(20);
+
+
+        days.addView(space);
         days.addView(sunday);
         days.addView(monday);
         days.addView(tuesday);
@@ -94,31 +98,26 @@ public class trying extends AppCompatActivity implements IView {
         days.addView(thursday);
         days.addView(friday);
 
-        linear.addView(days, 1);
-    }
+        table.addView(days);
 
-    private void setupMainScheduleTable(TableLayout table) {
-        scheduleButtons = new ScheduleButton[6][LAST_HOUR_OF_SCHEDULE - INITIAL_HOUR_OF_SCHEDULE];
-        TableRow.LayoutParams lp = new TableRow.LayoutParams(TableRow.LayoutParams.WRAP_CONTENT, TableLayout.LayoutParams.WRAP_CONTENT);
-        LinearLayout.LayoutParams tlp = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+
+
         for (int i = 0; i < LAST_HOUR_OF_SCHEDULE - INITIAL_HOUR_OF_SCHEDULE; i++) {
-            CheckBox checkBox = new CheckBox(this);
-            checkBox.setText("" + (i+INITIAL_HOUR_OF_SCHEDULE));
-            checkBox.setWidth(255);
-            checkBox.setTextSize(14);
+            TextView hour = new TextView(this);
+            hour.setText("" + (i + INITIAL_HOUR_OF_SCHEDULE));
+            hour.setWidth(20);
+            hour.setTextSize(20);
+            hour.setGravity(Gravity.CENTER);
             //checkBox.setGravity(Gravity.CENTER);
             TableRow row = new TableRow(this);
             row.setLayoutParams(lp);
-            row.addView(checkBox);
+            row.addView(hour);
             for (int j = 0; j < 6; j++) {
                 Button tempBtn = new Button(this);
                 tempBtn.setId(View.generateViewId());
-                tempBtn.setWidth(10);
-                tempBtn.setMaxLines(2);
-                tempBtn.setTextSize(10);
-                tempBtn.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT,LinearLayout.LayoutParams.MATCH_PARENT));
+                //tempBtn.setBackgroundColor(Color.TRANSPARENT);
                 //create schedulebutton by android button
-                ScheduleButton tempButton = new ScheduleButton(IDay.dayByInt(j + 1), i + INITIAL_HOUR_OF_SCHEDULE,tempBtn);
+                ScheduleButton tempButton = new ScheduleButton(IDay.dayByInt(j + 1), i + INITIAL_HOUR_OF_SCHEDULE, tempBtn);
                 //set on action button
                 //tempButton.setOnAction(e -> scheduleButtonsUnAvctive(tempButton));
                 tempButton.setFlag(true);
@@ -126,37 +125,38 @@ public class trying extends AppCompatActivity implements IView {
 
                 row.addView(tempBtn, lp);
             }
-            table.addView(row, tlp);
+            table.addView(row);
+            table.setStretchAllColumns(true);
         }
     }
 
     @Override
-    public void setCourses(ICourse[] allCoursesForViewer){
-        //evrey course has one or more shows, need to counting them before malloc the array
-        int amountOfShows=0;
-        for (ICourse course: allCoursesForViewer){
-            Iterator<Integer>iter=course.getShowCodes().iterator();
-            while(iter.hasNext()){
+    public void setCourses(ICourse[] allCoursesForViewer) {
+        //Every course has one or more shows, need to counting them before malloc the array
+        int amountOfShows = 0;
+        for (ICourse course : allCoursesForViewer) {
+            Iterator<Integer> iter = course.getShowCodes().iterator();
+            while (iter.hasNext()) {
                 amountOfShows++;
                 iter.next();
             }
         }
-        coursesCheckboxes=new CourseCheckBox[amountOfShows];
-        int courseCount=0;
-        int showCount=0;
-        TableRow row=null;
-        int showsPerRow=SHOWS_PER_ROW;
-        for (ICourse course: allCoursesForViewer){
+        coursesCheckboxes = new CourseCheckBox[amountOfShows];
+        int courseCount = 0;
+        int showCount = 0;
+        TableRow row = null;
+        int showsPerRow = SHOWS_PER_ROW;
+        for (ICourse course : allCoursesForViewer) {
 
 
             //iteratr ove shows per course
-            Iterator<Integer>iter=course.getShowCodes().iterator();
-            while(iter.hasNext()){
+            Iterator<Integer> iter = course.getShowCodes().iterator();
+            while (iter.hasNext()) {
 
                 //checking  if shows per row is true
                 //CREATE NEW ROW FOR 3 COURES AT MOST
-                if(showsPerRow==SHOWS_PER_ROW) {
-                    showsPerRow=0;
+                if (showsPerRow == SHOWS_PER_ROW) {
+                    showsPerRow = 0;
                     row = new TableRow(this);
                     TableRow.LayoutParams lp = new TableRow.LayoutParams(TableRow.LayoutParams.WRAP_CONTENT, TableLayout.LayoutParams.WRAP_CONTENT);
                     row.setLayoutParams(lp);
@@ -169,11 +169,11 @@ public class trying extends AppCompatActivity implements IView {
                 checkBox.setTextSize(14);
                 //adding checkbox to row
                 row.addView(checkBox);
-                int showCode=iter.next();
+                int showCode = iter.next();
                 //init coursesCheckboxes vars
                 coursesCheckboxes[showCount] = new CourseCheckBox(allCoursesForViewer[courseCount].getCourseName(),
-                        allCoursesForViewer[courseCount].getCourseCode(), showCode,checkBox);
-                   //coursesCheckboxes[i].setOnAction(e -> courseCheckBoxAction((CourseCheckBox) e.getSource()));
+                        allCoursesForViewer[courseCount].getCourseCode(), showCode, checkBox);
+                //coursesCheckboxes[i].setOnAction(e -> courseCheckBoxAction((CourseCheckBox) e.getSource()));
                 //counting  if shows per row is true
                 showsPerRow++;
                 //counting shows per row
@@ -185,6 +185,7 @@ public class trying extends AppCompatActivity implements IView {
         }
 
     }
+
     @Override
     public void deactiveCollorButton(ScheduleButton button) {
         button.getButton().setBackgroundColor(Color.BLACK);
@@ -328,4 +329,5 @@ public class trying extends AppCompatActivity implements IView {
     public IHour getButtonInvoke() {
         return null;
     }
+
 }
