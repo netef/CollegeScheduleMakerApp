@@ -182,7 +182,7 @@ public class Schedule extends AppCompatActivity
             //checkBox.setGravity(Gravity.CENTER);
             TableRow row = new TableRow(this);
             row.setLayoutParams(lp);
-            row.addView(hour);
+            row.addView(hour, lp);
             for (int j = 0; j < 6; j++) {
                 Button tempBtn = new Button(this);
                 tempBtn.setId(View.generateViewId());
@@ -197,8 +197,10 @@ public class Schedule extends AppCompatActivity
                 row.addView(tempBtn, lp);
             }
             table.addView(row);
-            //table.setStretchAllColumns(true);
+
         }
+        table.setPadding(0,150,0,0);
+        table.setShrinkAllColumns(true);
     }
     private CourseCheckBox invokingCourseCheckboxes;
 
