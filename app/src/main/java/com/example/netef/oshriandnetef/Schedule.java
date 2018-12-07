@@ -1,6 +1,7 @@
 package com.example.netef.oshriandnetef;
 
 import android.graphics.Color;
+import android.graphics.PorterDuff;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -20,6 +21,7 @@ import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
 
+import com.example.netef.oshriandnetef.Classes.Controller;
 import com.example.netef.oshriandnetef.Classes.CourseCheckBox;
 import com.example.netef.oshriandnetef.Classes.ICourse;
 import com.example.netef.oshriandnetef.Classes.IDay;
@@ -29,7 +31,9 @@ import com.example.netef.oshriandnetef.Classes.IView;
 import com.example.netef.oshriandnetef.Classes.ScheduleButton;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Iterator;
+import java.util.Map;
 
 public class Schedule extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener, IView {
@@ -42,7 +46,7 @@ public class Schedule extends AppCompatActivity
     private ScheduleButton[][] scheduleButtons;
     private TableLayout tableCourses;
     private CourseCheckBox[] coursesCheckboxes;
-
+    private NavigationView navigationView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,9 +65,8 @@ public class Schedule extends AppCompatActivity
         drawer.addDrawerListener(toggle);
         toggle.syncState();
 
-        NavigationView navigationView =  findViewById(R.id.nav_view);
+        navigationView =  findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
-
 
 
 
@@ -71,22 +74,61 @@ public class Schedule extends AppCompatActivity
         setupMainScheduleTable(table);
         tableCourses = findViewById(R.id.tableCourses);
         //uncomment to see courses CB
-        //MainActivity.controller.invokeConroller(Controller.CREATE_SCHEDULE_VIEWER,this);
-
+        MainActivity.controller.invokeConroller(Controller.CREATE_SCHEDULE_VIEWER,this);
 
         table.setShrinkAllColumns(true);
 
 
     }
 
+    private void setupNavigationView(ICourse[] allCoursesForViewer) {
+        Menu menu = navigationView.getMenu();
+        int amountOfShows = 0;
+        for (ICourse course : allCoursesForViewer) {
+            Iterator<Integer> iter = course.getShowCodes().iterator();
+            while (iter.hasNext()) {
+                amountOfShows++;
+                iter.next();
+            }
+        }
+        coursesCheckboxes = new CourseCheckBox[amountOfShows];
+        int courseCount = 0;
+        int showCount = 0;
+        for (ICourse course : allCoursesForViewer) {
 
+            //iteratr ove shows per course
+            Iterator<Integer> iter = course.getShowCodes().iterator();
+            while (iter.hasNext()) {
+                int showCode = iter.next();
+
+                menu.add(Menu.FIRST, showCount, showCount, allCoursesForViewer[courseCount].getCourseName());
+                menu.getItem(showCount).setIcon(R.drawable.unchecked_course);
+                menu.getItem(showCount).setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
+                    @Override
+                    public boolean onMenuItemClick(MenuItem menuItem) {
+                        courseCheckBoxAction(menuItem);
+                        return false;
+                    }
+                });
+
+                //init coursesCheckboxes vars
+                coursesCheckboxes[showCount] = new CourseCheckBox(allCoursesForViewer[courseCount].getCourseName(),
+                        allCoursesForViewer[courseCount].getCourseCode(), showCode, menu.getItem(showCount),false);
+                //counting shows per row
+                showCount++;
+
+            }
+            //counting shows for allCoursesForViewer array placing
+            courseCount++;
+        }
+
+        }
 
 
     private void setupMainScheduleTable(TableLayout table) {
         scheduleButtons = new ScheduleButton[6][LAST_HOUR_OF_SCHEDULE - INITIAL_HOUR_OF_SCHEDULE];
-        TableRow.LayoutParams lp = new TableRow.LayoutParams(TableRow.LayoutParams.WRAP_CONTENT, TableLayout.LayoutParams.WRAP_CONTENT);
+        TableRow.LayoutParams lp = new TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT, TableLayout.LayoutParams.MATCH_PARENT);
         TableRow days = new TableRow(this);
-        TableLayout.LayoutParams layoutParams = new TableLayout.LayoutParams(TableLayout.LayoutParams.MATCH_PARENT, TableLayout.LayoutParams.WRAP_CONTENT);
 
         Button space = new Button(this);
         Button sunday = new Button(this);
@@ -118,14 +160,14 @@ public class Schedule extends AppCompatActivity
         thursday.setTextSize(20);
         friday.setTextSize(20);
 
-
-        days.addView(space);
-        days.addView(sunday);
-        days.addView(monday);
-        days.addView(tuesday);
-        days.addView(wednesday);
-        days.addView(thursday);
-        days.addView(friday);
+        days.setLayoutParams(lp);
+        days.addView(space,lp);
+        days.addView(sunday,lp);
+        days.addView(monday,lp);
+        days.addView(tuesday,lp);
+        days.addView(wednesday,lp);
+        days.addView(thursday,lp);
+        days.addView(friday,lp);
 
         table.addView(days);
 
@@ -135,7 +177,7 @@ public class Schedule extends AppCompatActivity
             TextView hour = new TextView(this);
             hour.setText("" + (i + INITIAL_HOUR_OF_SCHEDULE));
             hour.setWidth(20);
-            hour.setTextSize(20);
+            hour.setTextSize(24);
             hour.setGravity(Gravity.CENTER);
             //checkBox.setGravity(Gravity.CENTER);
             TableRow row = new TableRow(this);
@@ -155,17 +197,109 @@ public class Schedule extends AppCompatActivity
                 row.addView(tempBtn, lp);
             }
             table.addView(row);
-            table.setStretchAllColumns(true);
+            //table.setStretchAllColumns(true);
         }
     }
+    private CourseCheckBox invokingCourseCheckboxes;
+
+    @Override
+    public void addSlotTOschedule(ISlot[] inokedSlots) {
+
+        for (ISlot iSlot : inokedSlots) {
+             int day = IDay.intByDay(iSlot.getDay().toString()) - 1;
+             int startColumn = iSlot.getStartingTime() - INITIAL_HOUR_OF_SCHEDULE;
+               int endColumn = iSlot.getEndingTime() - INITIAL_HOUR_OF_SCHEDULE;
+                for (int i = startColumn; i < endColumn; i++) {
+                    scheduleButtons[day][i].getButton().getBackground().setColorFilter(Color.RED, PorterDuff.Mode.MULTIPLY);
+               }
+
+           }
+    }
+
+    @Override
+    public void removeSlotFromschedule(ISlot[] inokedSlots) {
+        for (ISlot iSlot : inokedSlots) {
+            int day = IDay.intByDay(iSlot.getDay().toString()) - 1;
+            int startColumn = iSlot.getStartingTime() - INITIAL_HOUR_OF_SCHEDULE;
+            int endColumn = iSlot.getEndingTime() - INITIAL_HOUR_OF_SCHEDULE;
+            for (int i = startColumn; i < endColumn; i++) {
+                scheduleButtons[day][i].getButton().getBackground().clearColorFilter();
+
+            }
+
+        }
+    }
+    @Override
+    public CourseCheckBox getInvokingCourseCheckboxes() {
+        return invokingCourseCheckboxes;
+    }
+
+    @Override
+    public void disableAndEnableCoursesCB(ArrayList<ICourse> impossibleCourses) {
+        Map<Integer, ICourse> mapOfCourses = new HashMap<Integer, ICourse>();
+        for (ICourse existCourse : impossibleCourses) {
+            mapOfCourses.put(existCourse.getCourseCode(), existCourse);
+        }
+
+        for (CourseCheckBox course : coursesCheckboxes) {
+            if (mapOfCourses.get(course.getCourseCode()) == null) {
+                course.getMenuItem().setVisible(true);
+            } else {
+                for (Integer showCodeFX : course.getShowCodes()) {
+                    if (mapOfCourses.get(course.getCourseCode()).getShowCodes().contains(showCodeFX)) {
+
+                        if (course.isSelected() == false) {
+                            course.getMenuItem().setVisible(false);
+                        } else
+                            course.getMenuItem().setVisible(true);
+                    } else
+                        course.getMenuItem().setVisible(true);
+                }
+            }
+
+        }
+        for (CourseCheckBox iCourse : coursesCheckboxes) {// choose only one
+            // show per
+            // course
+            if (iCourse.isSelected()) {
+                for (CourseCheckBox iCourse2 : coursesCheckboxes) {
+                    if (iCourse2.getCourseCode() == iCourse.getCourseCode()) {
+                        if (iCourse2.isSelected() == false) {
+                            iCourse2.getMenuItem().setVisible(false);
+                        }
+                    }
+                }
+            }
+
+        }
+    }
+    private void courseCheckBoxAction(MenuItem menuItem) {
+        invokingCourseCheckboxes = coursesCheckboxes[menuItem.getItemId()];
+        if (!invokingCourseCheckboxes.isSelected()) {
+            invokingCourseCheckboxes.setSelected(true);
+
+            MainActivity.controller.invokeConroller(Controller.COURSE_CHECKBOX_ACTIVATED,true);
+            menuItem.setIcon(R.drawable.checked_course);
+        } else {
+            invokingCourseCheckboxes.setSelected(false);
+
+            MainActivity.controller.invokeConroller(Controller.COURSE_CHECKBOX_DEACTIVATED,true);
+            menuItem.setIcon(R.drawable.unchecked_course);
+        }
+    }
+  /*  private ScheduleButton buttonInvoke;
+    private void scheduleButtonsUnAvctive(ScheduleButton button) {
+        buttonInvoke = button;
+        if (buttonInvoke.isFlag()) {
+
+            MainActivity.controller.invokeConroller(Controller.SCHEDULE_BUTTON_UNACTIVE_VIEWER,this);
+
+        } else {
+            MainActivity.controller.invokeConroller(Controller.SCHEDULE_BUTTON_ACTIVE_VIEWER,this);
+        }
 
 
-
-
-
-
-
-
+    }*/
     @Override
     public void onBackPressed() {
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
@@ -202,17 +336,8 @@ public class Schedule extends AppCompatActivity
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
         // Handle navigation view item clicks here.
-        int id = item.getItemId();
 
-        if (id == R.id.java) {
-            // Handle the camera action
-        } else if (id == R.id.cpp) {
 
-        } else if (id == R.id.linux) {
-
-        } else if (id == R.id.python) {
-
-        }
 
         //add this if you want to close the drawer after you click
 
@@ -223,57 +348,7 @@ public class Schedule extends AppCompatActivity
 
     @Override
     public void setCourses(ICourse[] allCoursesForViewer) {
-        //Every course has one or more shows, need to counting them before malloc the array
-        int amountOfShows = 0;
-        for (ICourse course : allCoursesForViewer) {
-            Iterator<Integer> iter = course.getShowCodes().iterator();
-            while (iter.hasNext()) {
-                amountOfShows++;
-                iter.next();
-            }
-        }
-        coursesCheckboxes = new CourseCheckBox[amountOfShows];
-        int courseCount = 0;
-        int showCount = 0;
-        TableRow row = null;
-        int showsPerRow = SHOWS_PER_ROW;
-        for (ICourse course : allCoursesForViewer) {
-
-
-            //iteratr ove shows per course
-            Iterator<Integer> iter = course.getShowCodes().iterator();
-            while (iter.hasNext()) {
-
-                //checking  if shows per row is true
-                //CREATE NEW ROW FOR 3 COURES AT MOST
-                if (showsPerRow == SHOWS_PER_ROW) {
-                    showsPerRow = 0;
-                    row = new TableRow(this);
-                    TableRow.LayoutParams lp = new TableRow.LayoutParams(TableRow.LayoutParams.WRAP_CONTENT, TableLayout.LayoutParams.WRAP_CONTENT);
-                    row.setLayoutParams(lp);
-                    //adding the row to the upper table
-                    tableCourses.addView(row);
-                }
-                //init check box
-                CheckBox checkBox = new CheckBox(this);
-                checkBox.setText(allCoursesForViewer[courseCount].getCourseName());
-                checkBox.setTextSize(14);
-                //adding checkbox to row
-                row.addView(checkBox);
-                int showCode = iter.next();
-                //init coursesCheckboxes vars
-                coursesCheckboxes[showCount] = new CourseCheckBox(allCoursesForViewer[courseCount].getCourseName(),
-                        allCoursesForViewer[courseCount].getCourseCode(), showCode, checkBox);
-                //coursesCheckboxes[i].setOnAction(e -> courseCheckBoxAction((CourseCheckBox) e.getSource()));
-                //counting  if shows per row is true
-                showsPerRow++;
-                //counting shows per row
-                showCount++;
-            }
-            //counting shows for allCoursesForViewer array placing
-            courseCount++;
-
-        }
+       setupNavigationView(allCoursesForViewer);
 
     }
 
@@ -365,10 +440,7 @@ public class Schedule extends AppCompatActivity
         return 0;
     }
 
-    @Override
-    public CourseCheckBox getInvokingCourseCheckboxes() {
-        return null;
-    }
+
 
     @Override
     public void disableCoursesCBByDay(ArrayList<ICourse> impossibleCourses, int invokingDayNumber) {
@@ -391,20 +463,10 @@ public class Schedule extends AppCompatActivity
     }
 
 
-    @Override
-    public void disableAndEnableCoursesCB(ArrayList<ICourse> impossibleCourses) {
 
-    }
 
-    @Override
-    public void addSlotTOschedule(ISlot[] iSlots) {
 
-    }
 
-    @Override
-    public void removeSlotFromschedule(ISlot[] inokedSlots) {
-
-    }
 
     @Override
     public void changeColumnToDeactiveColor(int coulmn) {

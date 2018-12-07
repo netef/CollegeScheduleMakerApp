@@ -16,21 +16,16 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        tools:context=".trying">
-
-        <ScrollView
-            android:id="@+id/scroll"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginTop="50dp">
+        tools:context=".Schedule">
 
             <TableLayout
                 android:id="@+id/table"
+                android:layout_marginTop="20dp"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
 
             </TableLayout>
-        </ScrollView>
+
     </FrameLayout>
 
     <include
