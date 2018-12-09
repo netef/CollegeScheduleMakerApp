@@ -9,8 +9,7 @@
     tools:openDrawer="start">
 
 
-
-    <FrameLayout
+    <LinearLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
         xmlns:tools="http://schemas.android.com/tools"
@@ -20,19 +19,33 @@
         android:orientation="vertical"
         tools:context=".Schedule">
 
-            <TableLayout
-                android:id="@+id/table"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent">
 
-            </TableLayout>
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/my_awesome_toolbar"
+            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:minHeight="?attr/actionBarSize"
+            android:background="?attr/colorPrimary" />
 
-    </FrameLayout>
+        <TableLayout
+            android:id="@+id/table"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+        </TableLayout>
+
+
+
+
+    </LinearLayout>
+
 
     <include
         layout="@layout/app_bar_schedule"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent" >
+
+
+    </include>
 
     <android.support.design.widget.NavigationView
         android:id="@+id/nav_view"
@@ -41,6 +54,9 @@
         android:layout_gravity="start"
         android:fitsSystemWindows="true"
         app:headerLayout="@layout/nav_header_schedule"
-        app:menu="@menu/activity_schedule_drawer" />
+        app:menu="@menu/activity_schedule_drawer" >
+
+
+    </android.support.design.widget.NavigationView>
 
 </android.support.v4.widget.DrawerLayout>

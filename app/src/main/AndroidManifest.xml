@@ -18,8 +18,6 @@
         </activity>
         <activity android:name=".CreateNewCourse" />
         <activity android:name=".CreateSlots" />
-        <activity android:name=".Schedule2" />
-        <activity android:name=".trying" />
         <activity
             android:name=".Schedule"
             android:label="@string/title_activity_schedule"
