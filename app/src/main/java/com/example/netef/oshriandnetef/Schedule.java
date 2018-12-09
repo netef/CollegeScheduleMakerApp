@@ -6,6 +6,8 @@ import android.os.Bundle;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.text.SpannableString;
+import android.text.style.ForegroundColorSpan;
 import android.view.Gravity;
 import android.view.View;
 import android.support.design.widget.NavigationView;
@@ -33,6 +35,7 @@ import com.example.netef.oshriandnetef.Classes.ScheduleButton;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Map;
 
@@ -43,6 +46,8 @@ public class Schedule extends AppCompatActivity
     public static final int SHOWS_PER_ROW = 3;
     public static final int INITIAL_HOUR_OF_SCHEDULE = 8;
     public static final int LAST_HOUR_OF_SCHEDULE = 23;
+    public final int[] colorArray={Color.CYAN,Color.RED,Color.BLUE,Color.YELLOW,Color.GREEN,Color.CYAN};
+
 
     private ScheduleButton[][] scheduleButtons;
     private TableLayout tableCourses;
@@ -79,6 +84,13 @@ public class Schedule extends AppCompatActivity
 
         //uncomment to see courses CB
         MainActivity.controller.invokeConroller(Controller.CREATE_SCHEDULE_VIEWER, this);
+
+        unusedColor=new HashSet<>();
+        for (Integer color:colorArray)
+        {
+            unusedColor.add(color);
+
+        }
 
     }
 
@@ -220,7 +232,7 @@ public class Schedule extends AppCompatActivity
             int startColumn = iSlot.getStartingTime() - INITIAL_HOUR_OF_SCHEDULE;
             int endColumn = iSlot.getEndingTime() - INITIAL_HOUR_OF_SCHEDULE;
             for (int i = startColumn; i < endColumn; i++) {
-                scheduleButtons[day][i].getButton().getBackground().setColorFilter(Color.RED, PorterDuff.Mode.MULTIPLY);
+                scheduleButtons[day][i].getButton().getBackground().setColorFilter(colorChoosed, PorterDuff.Mode.MULTIPLY);
             }
 
         }
@@ -285,18 +297,39 @@ public class Schedule extends AppCompatActivity
         }
     }
 
+    private int colorChoosed;
+    private HashMap<MenuItem,Integer> usedColor=new HashMap<>();
+    private HashSet<Integer> unusedColor;
     private void courseCheckBoxAction(MenuItem menuItem) {
         invokingCourseCheckboxes = coursesCheckboxes[menuItem.getItemId()];
         if (!invokingCourseCheckboxes.isSelected()) {
             invokingCourseCheckboxes.setSelected(true);
+            colorChoosed=colorArray[0];//cyan color is default , if no colors left
+            if(!unusedColor.isEmpty()) {
+                colorChoosed= unusedColor.iterator().next();
+                unusedColor.remove(colorChoosed);
+            }
 
-            MainActivity.controller.invokeConroller(Controller.COURSE_CHECKBOX_ACTIVATED, true);
+            MainActivity.controller.invokeConroller(Controller.COURSE_CHECKBOX_ACTIVATED,true);
+            //changing color to specific color.
+            SpannableString s = new SpannableString(menuItem.getTitle());
+            s.setSpan(new ForegroundColorSpan(colorChoosed), 0, s.length(), 0);
+            menuItem.setTitle(s);
             menuItem.setIcon(R.drawable.checked_course);
+            usedColor.put(menuItem,colorChoosed);
+
         } else {
+            unusedColor.add(usedColor.get(menuItem));
+            usedColor.remove(menuItem);
             invokingCourseCheckboxes.setSelected(false);
 
-            MainActivity.controller.invokeConroller(Controller.COURSE_CHECKBOX_DEACTIVATED, true);
+            MainActivity.controller.invokeConroller(Controller.COURSE_CHECKBOX_DEACTIVATED,true);
+            //changing color to default=black
+            SpannableString s = new SpannableString(menuItem.getTitle());
+            s.setSpan(new ForegroundColorSpan(Color.BLACK), 0, s.length(), 0);
+            menuItem.setTitle(s);
             menuItem.setIcon(R.drawable.unchecked_course);
+
         }
     }
 
