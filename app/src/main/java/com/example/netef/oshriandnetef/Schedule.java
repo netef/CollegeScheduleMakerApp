@@ -46,7 +46,9 @@ public class Schedule extends AppCompatActivity
     public static final int SHOWS_PER_ROW = 3;
     public static final int INITIAL_HOUR_OF_SCHEDULE = 8;
     public static final int LAST_HOUR_OF_SCHEDULE = 23;
-    public final int[] colorArray={Color.CYAN,Color.RED,Color.BLUE,Color.YELLOW,Color.GREEN,Color.CYAN};
+    public final int[] colorArray={Color.parseColor("#F2740B"),Color.parseColor("#00e676"),Color.parseColor("#ffff00"),
+            Color.parseColor("#1a237e"),Color.parseColor("#ffcdd2"),Color.parseColor("#5d4037"),Color.parseColor("#7b1fa2"),
+            Color.parseColor("#bbdefb")};
 
 
     private ScheduleButton[][] scheduleButtons;
