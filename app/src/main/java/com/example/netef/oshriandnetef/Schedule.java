@@ -101,7 +101,7 @@ public class Schedule extends AppCompatActivity
         Menu menu = navigationView.getMenu();
         int amountOfShows = 0;
         for (ICourse course : allCoursesForViewer) {
-            Iterator<Integer> iter = course.getShowCodes().iterator();
+            Iterator<Integer> iter = course.getIShows().keySet().iterator();
             while (iter.hasNext()) {
                 amountOfShows++;
                 iter.next();
@@ -125,8 +125,10 @@ public class Schedule extends AppCompatActivity
                     for (String lecturer:map.get(day)) {
                         titleString=new String(titleString+" "+lecturer.toString());
 
-                menu.add(Menu.FIRST, showCount, showCount, allCoursesForViewer[courseCount].getCourseName());
                     }
+
+                }
+                menu.add(Menu.FIRST, showCount, showCount, titleString);
                 menu.getItem(showCount).setIcon(R.drawable.unchecked_course);
                 menu.getItem(showCount).setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
                     @Override
