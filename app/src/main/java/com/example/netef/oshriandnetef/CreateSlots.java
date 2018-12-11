@@ -13,6 +13,7 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.netef.oshriandnetef.Classes.Controller;
 import com.example.netef.oshriandnetef.Classes.CourseCheckBox;
@@ -31,6 +32,8 @@ public class CreateSlots extends AppCompatActivity implements IView {
     public static final Integer hour[] = {8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22};
     public static final int NUMBER_OF_INPUTS_PER_SLOT = 5;
 
+
+
     private int amountOfSlots;
     private SlotInputObjects slotInputObjects [];
     private LinearLayout linearLayout;
@@ -42,6 +45,8 @@ public class CreateSlots extends AppCompatActivity implements IView {
         //remove activivty from the controller before activivty destroy
         MainActivity.controller.removeViewer(this);
     }
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -148,10 +153,18 @@ public class CreateSlots extends AppCompatActivity implements IView {
     }
 
     @Override
+    public void slotMatchingHoursException(int slotNumber) {
+        //NOTIFY USER WHERE IS THE ERROR
+        Toast.makeText(this, "Slot Number "+(slotNumber+1)+" Hours Error: Slot hours match with other slots hours ",
+                Toast.LENGTH_LONG).show();
+
+    }
+    @Override
     public void slotTimingException(int slotNumber){
         //NOTIFY USER WHERE IS THE ERROR
-        //slotInputObjects[slotNumber].getFinishTimeComboBox().setBackgroundColor(Color.RED);
-        //slotInputObjects[slotNumber].getStartTimeComboBox().setBackgroundColor(Color.RED);
+        Toast.makeText(this, "Slot Number "+(slotNumber+1)+" Hours Error: Ending hour must be after Beginning hour.",
+                Toast.LENGTH_LONG).show();
+
     }
 
     @Override
@@ -244,7 +257,10 @@ public class CreateSlots extends AppCompatActivity implements IView {
 
 
     //UNUSED METHODS
+    @Override
+    public void courseCodeNotAnIntegerException() {
 
+    }
 
     @Override
     public void createNewCoursePane() {

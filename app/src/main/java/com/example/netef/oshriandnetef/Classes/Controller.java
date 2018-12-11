@@ -36,7 +36,8 @@ public class Controller implements IController {
     public static final String CREATE_SCHEDULE_VIEWER = "Create schedule viewer";
     public static final String DONE_CREATE_COURSE_ANOTHER_SHOW_VIEWER ="Another show created" ;
     public static final String NEVER_CREATE_COURSE_VIEWER ="NEVER CREATE COURSE";
-
+    public static final String COURSE_CODE_NOT_AN_INTEGER="COURSE_CODE_NOT_AN_INTEGEr";
+    public static final String MATCHING_SLOTS_BY_HOURS_ERROR="MATCHING_SLOTS_BY_HOURS_ERROr";
 
     private IView viewer;
     private ArrayList<IView> viewers;
@@ -87,9 +88,19 @@ public class Controller implements IController {
 
             viewer.courseCodeException();
 
-        } else if (e.getMsg().equals(COURSE_NAME_ALREADY_EXIST_ERROR)) {
+        }
+        else if (e.getMsg().equals(COURSE_CODE_NOT_AN_INTEGER)) {
+
+            viewer.courseCodeNotAnIntegerException();
+
+        }
+        else if (e.getMsg().equals(COURSE_NAME_ALREADY_EXIST_ERROR)) {
 
             viewer.courseNameException();
+        }
+
+        else if (e.getMsg().equals(MATCHING_SLOTS_BY_HOURS_ERROR)) {
+            viewer.slotMatchingHoursException(model.getIvokingSlotNumber());
         }
         else if (e.getMsg().equals(TIMING_ERROR)) {
             viewer.slotTimingException(model.getIvokingSlotNumber());

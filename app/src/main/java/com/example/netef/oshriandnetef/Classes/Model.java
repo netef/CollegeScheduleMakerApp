@@ -7,6 +7,7 @@ import com.example.netef.oshriandnetef.exceptions.CourseCodeAlreadyExistExceptio
 import com.example.netef.oshriandnetef.exceptions.CourseNameAlreadyExistException;
 import com.example.netef.oshriandnetef.exceptions.EndingTimeBeforeStartingTimeException;
 import com.example.netef.oshriandnetef.exceptions.RoomFullException;
+import com.example.netef.oshriandnetef.exceptions.ShowContaintSlotWithMatchingHoursException;
 import com.example.netef.oshriandnetef.exceptions.TeacherTeachingException;
 import com.example.netef.oshriandnetef.exceptions.courseNotExistException;
 
@@ -68,9 +69,12 @@ public class Model extends Activity implements IModel {
             lastCreatedCourse=allCourses.getCourseById(toIntFromString(courseInput[0]));
             invokeListeners(Controller.DONE_CREATE_COURSE_MODEL);
             return;
-        } catch (CourseCodeAlreadyExistException | NumberFormatException e) {
+        } catch (CourseCodeAlreadyExistException e) {
             invokeListeners(Controller.COURSE_CODE_ALREADY_EXIST_ERROR);
             return;
+        }catch ( NumberFormatException e) {
+                invokeListeners(Controller.COURSE_CODE_NOT_AN_INTEGER);
+                return;
         } catch (CourseNameAlreadyExistException e) {
             invokeListeners(Controller.COURSE_NAME_ALREADY_EXIST_ERROR);
             return;
@@ -147,6 +151,7 @@ public class Model extends Activity implements IModel {
                     try {
                         allCourses.addSlot(courseCode, showNumber, i, day, startingTime, endingTime, numberOfRoom,
                                 nameOfLect);
+
                     } catch (RoomFullException e) {
                         allCourses.removeShow(courseCode, showNumber);
                         setIvokingSlotNumber(i);
@@ -164,7 +169,14 @@ public class Model extends Activity implements IModel {
                     invokeListeners(Controller.TIMING_ERROR);
                     return;
                 }
+                catch (ShowContaintSlotWithMatchingHoursException e) {
+                    allCourses.removeShow(courseCode, showNumber);
+                    setIvokingSlotNumber(i);
+                    invokeListeners(Controller.MATCHING_SLOTS_BY_HOURS_ERROR);
+                    return;
+                }
             }
+
 
             if (createAnotherShow == false) {
                 invokeListeners(Controller.DONE_CREATE_SLOTS_MODEL);

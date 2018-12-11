@@ -4,6 +4,7 @@ import com.example.netef.oshriandnetef.exceptions.CourseCodeAlreadyExistExceptio
 import com.example.netef.oshriandnetef.exceptions.CourseNameAlreadyExistException;
 import com.example.netef.oshriandnetef.exceptions.EndingTimeBeforeStartingTimeException;
 import com.example.netef.oshriandnetef.exceptions.RoomFullException;
+import com.example.netef.oshriandnetef.exceptions.ShowContaintSlotWithMatchingHoursException;
 import com.example.netef.oshriandnetef.exceptions.TeacherTeachingException;
 import com.example.netef.oshriandnetef.exceptions.courseNotExistException;
 
@@ -56,15 +57,28 @@ public class AllCourses {
         return mapOfCourses;
     }
 
-    public void addSlot(int courseId, int numOfShow, int numOfSlot, IDay.Day day, int startingTime, int endingTime, int numberOfRoom, String nameOfLect) throws RoomFullException, TeacherTeachingException, EndingTimeBeforeStartingTimeException, courseNotExistException {
+    public void addSlot(int courseId, int numOfShow, int numOfSlot, IDay.Day day, int startingTime, int endingTime, int numberOfRoom, String nameOfLect) throws RoomFullException, TeacherTeachingException, EndingTimeBeforeStartingTimeException, courseNotExistException, ShowContaintSlotWithMatchingHoursException {
         Slot newSlot = new Slot(day, startingTime, endingTime, numberOfRoom, nameOfLect);
         if (ligitSlotByroom(newSlot) == false) {
             throw new RoomFullException("Room full those hours ");
         } else if (ligitSlotByTeacher(newSlot) == false) {
             throw new TeacherTeachingException("Teacher teaching those hours");
         }
+        else if(ligitSlotByHourOfothersSlot(newSlot,courseId,numOfShow)== false){
+            throw new ShowContaintSlotWithMatchingHoursException("Show contains slots that have matching hours");
+        }
         Course wantedCourse = getCourseById(courseId);
         wantedCourse.getShows().get(numOfShow).getSlots().add(newSlot);
+    }
+    //check if if there are slots in the created show with same hours
+
+    private boolean ligitSlotByHourOfothersSlot(Slot newSlot, int courseCode, int showNumber) {
+            for (Slot slotTwo: this.getMapOfCourse().get(courseCode).getShows().get(showNumber).getSlots()) {
+                if (!newSlot.equals(slotTwo)&&!newSlot.noMatchingHours(slotTwo)) {
+                    return false;
+                }
+            }
+        return true;
     }
 
     @Override

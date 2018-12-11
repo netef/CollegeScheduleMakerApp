@@ -24,11 +24,19 @@ public class Course implements ICourse {
         mapOfShows = new HashMap();
 
     }
-
     @Override
     public HashSet<Integer> getShowCodes() {
         HashSet<Integer> ret = new HashSet(mapOfShows.keySet());
         return ret;
+    }
+    @Override
+    public HashMap<Integer,IShow> getIShows() {
+        HashMap<Integer,IShow> map=new HashMap<>();
+        for (Map.Entry<Integer,Show> entry:mapOfShows.entrySet())
+         {
+             map.put(entry.getKey(),(IShow)entry.getValue());
+        }
+        return map;
     }
 
     @Override
@@ -48,6 +56,8 @@ public class Course implements ICourse {
     public Show getShowByShowCourse(int showCode) {
         return mapOfShows.get(showCode);
     }
+
+
 
     public Show getLonleyShow() {
         if (getShows().size() == 1) {

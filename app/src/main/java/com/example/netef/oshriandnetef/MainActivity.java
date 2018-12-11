@@ -107,7 +107,14 @@ public class MainActivity extends AppCompatActivity implements IView {
     public void roomFullException(int slotNumber) {
 
     }
+    @Override
+    public void courseCodeNotAnIntegerException() {
 
+    }
+    @Override
+    public void slotMatchingHoursException(int ivokingSlotNumber) {
+
+    }
     @Override
     public void teacherTeachingException(int slotNumber) {
 

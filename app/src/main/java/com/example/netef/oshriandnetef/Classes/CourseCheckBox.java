@@ -2,6 +2,8 @@ package com.example.netef.oshriandnetef.Classes;
 
 import android.view.MenuItem;
 import android.widget.CheckBox;
+
+import java.util.HashMap;
 import java.util.HashSet;
 
 public class CourseCheckBox  implements ICourse{
@@ -37,6 +39,12 @@ public class CourseCheckBox  implements ICourse{
     public HashSet<Integer> getShowCodes() {
         return set;
     }
+
+    @Override
+    public HashMap<Integer, IShow> getIShows() {
+        return null;
+    }
+
 
     public int getShowCode() {
         return this.courseCode;

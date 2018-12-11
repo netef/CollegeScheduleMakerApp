@@ -11,6 +11,8 @@ public interface IView {
     //CreateNewCourse
     void createNewSlotPane();
     void courseCodeException();
+    void courseCodeNotAnIntegerException();
+
     void courseNameException();
     String[] getCourseInput();
     String[] getShowInput();
@@ -24,7 +26,7 @@ public interface IView {
     void roomFullException(int slotNumber);
     void teacherTeachingException(int slotNumber);
     void roomInputIsntAint(int slotNumber);
-
+    void slotMatchingHoursException(int ivokingSlotNumber);
     //4
     int getInvokingDayNumber();
     //COURSES CHECKBOXES METHODS
@@ -43,4 +45,6 @@ public interface IView {
     IHour getButtonInvoke();
 
     void setCourses(ICourse[] allCoursesForViewer);//done
+
+
 }

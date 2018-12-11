@@ -7,6 +7,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.TextView;
 
 import com.example.netef.oshriandnetef.Classes.Controller;
 import com.example.netef.oshriandnetef.Classes.CourseCheckBox;
@@ -27,6 +28,8 @@ public class CreateNewCourse extends AppCompatActivity implements IView {
     private EditText courseID;
     private EditText courseName;
     private Spinner dropBox;
+
+
 
     @Override
     public void onDestroy() {
@@ -57,7 +60,7 @@ public class CreateNewCourse extends AppCompatActivity implements IView {
         MainActivity.controller.addViewer(this);
 
         //Spinner assigenment
-        Integer dropBoxItems[] = {1,2,3,4,5};
+        Integer dropBoxItems[] = {1,2,3,4};
         dropBox = findViewById(R.id.dropBox);
         ArrayAdapter arrayAdapter = new ArrayAdapter(this, android.R.layout.simple_list_item_1, dropBoxItems);
         dropBox.setAdapter(arrayAdapter);
@@ -89,6 +92,8 @@ public class CreateNewCourse extends AppCompatActivity implements IView {
         startActivity(intent);
     }
     private void anotherShow() {
+        TextView text=findViewById(R.id.Title);
+        text.setText("Create Another Show");
         //SET Course code from last show,Also disable editing.
         this.courseID.setEnabled(false);
 
@@ -98,6 +103,11 @@ public class CreateNewCourse extends AppCompatActivity implements IView {
     @Override
     public void courseCodeException() {
         courseID.setError("Course code already exist");
+    }
+
+    @Override
+    public void courseCodeNotAnIntegerException() {
+        courseID.setError("Course code must to be a number");
     }
 
     @Override
@@ -205,6 +215,10 @@ public class CreateNewCourse extends AppCompatActivity implements IView {
 
     @Override
     public void deactiveCollorButton(ScheduleButton button) {
+
+    }
+    @Override
+    public void slotMatchingHoursException(int ivokingSlotNumber) {
 
     }
 

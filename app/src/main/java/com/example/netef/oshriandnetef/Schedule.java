@@ -29,6 +29,7 @@ import com.example.netef.oshriandnetef.Classes.CourseCheckBox;
 import com.example.netef.oshriandnetef.Classes.ICourse;
 import com.example.netef.oshriandnetef.Classes.IDay;
 import com.example.netef.oshriandnetef.Classes.IHour;
+import com.example.netef.oshriandnetef.Classes.IShow;
 import com.example.netef.oshriandnetef.Classes.ISlot;
 import com.example.netef.oshriandnetef.Classes.IView;
 import com.example.netef.oshriandnetef.Classes.ScheduleButton;
@@ -111,12 +112,21 @@ public class Schedule extends AppCompatActivity
         int showCount = 0;
         for (ICourse course : allCoursesForViewer) {
 
-            //iteratr ove shows per course
-            Iterator<Integer> iter = course.getShowCodes().iterator();
+            //iteratr over shows per course
+            Iterator<Map.Entry<Integer,IShow>> iter = course.getIShows().entrySet().iterator();
             while (iter.hasNext()) {
-                int showCode = iter.next();
+                Map.Entry<Integer,IShow> entry=iter.next();
+                int showCode = entry.getKey();
+                //setup string for ui , lecturer and days
+                String titleString=allCoursesForViewer[courseCount].getCourseName();
+                HashMap<IDay.Day, HashSet<String>> map =entry.getValue().getDaysAndLecturerName();
+                for (IDay.Day day:map.keySet()) {
+                    titleString=new String(titleString+" "+day.toString());
+                    for (String lecturer:map.get(day)) {
+                        titleString=new String(titleString+" "+lecturer.toString());
 
                 menu.add(Menu.FIRST, showCount, showCount, allCoursesForViewer[courseCount].getCourseName());
+                    }
                 menu.getItem(showCount).setIcon(R.drawable.unchecked_course);
                 menu.getItem(showCount).setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
                     @Override
@@ -431,7 +441,14 @@ public class Schedule extends AppCompatActivity
     public void courseNameException() {
 
     }
+    @Override
+    public void slotMatchingHoursException(int ivokingSlotNumber) {
 
+    }
+    @Override
+    public void courseCodeNotAnIntegerException() {
+
+    }
     @Override
     public String[] getCourseInput() {
         return new String[0];
