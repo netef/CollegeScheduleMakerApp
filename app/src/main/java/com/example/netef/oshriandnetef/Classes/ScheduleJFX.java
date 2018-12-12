@@ -723,7 +723,7 @@
 //            }
 //
 //        }
-//
+
 //        private void disableSelcetedCourseByHour(ScheduleButton buttonInvoke) {
 //            for (CourseCheckBox course : coursesCheckboxes) {
 //                if (course.isSelected() && buttonInvoke.getText().equals(course.getText())) {
@@ -732,9 +732,9 @@
 //
 //                }
 //            }
-//
-//
-//        }
+////
+////
+////        }
 //
 //        public void ableCoursesCBByHour(ArrayList<ICourse> impossibleCourses) {
 //            activeCollorButton(buttonInvoke);

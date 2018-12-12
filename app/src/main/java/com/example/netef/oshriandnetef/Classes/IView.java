@@ -28,23 +28,27 @@ public interface IView {
     void roomInputIsntAint(int slotNumber);
     void slotMatchingHoursException(int ivokingSlotNumber);
     //4
+
+    void disableCoursesCBByHour(ArrayList<ICourse> impossibleCourses);//done
+    void ableCoursesCBByHour(ArrayList<ICourse> impossibleCourses);//done
+    void disableAndEnableCoursesCB(ArrayList<ICourse> impossibleCourses);//done
+    void setCourses(ICourse[] allCoursesForViewer);//done
+    IHour getButtonInvoke();//done
+    void addSlotTOschedule(ISlot[] iSlots);//done
+    void removeSlotFromschedule(ISlot[] inokedSlots);//done
+    void deactiveCollorButton(ScheduleButton button);//done
+
+    //DAY METHODS
     int getInvokingDayNumber();
-    //COURSES CHECKBOXES METHODS
     CourseCheckBox getInvokingCourseCheckboxes();//done
     void disableCoursesCBByDay(ArrayList<ICourse> impossibleCourses, int invokingDayNumber);
     void ableCoursesCBByDay(ArrayList<ICourse> impossibleCourses, int invokingDayNumber);
-    void disableCoursesCBByHour(ArrayList<ICourse> impossibleCourses);
-    void ableCoursesCBByHour(ArrayList<ICourse> impossibleCourses);
-    void disableAndEnableCoursesCB(ArrayList<ICourse> impossibleCourses);
-    //SCHEDULE BUTTONS METHODS
-    void deactiveCollorButton(ScheduleButton button);
-    void addSlotTOschedule(ISlot[] iSlots);//done
-    void removeSlotFromschedule(ISlot[] inokedSlots);//done
     void changeColumnToDeactiveColor(int coulmn);
     void changeColumnToActiveColor(int coulmn);
-    IHour getButtonInvoke();
 
-    void setCourses(ICourse[] allCoursesForViewer);//done
+
+
+
 
 
 }

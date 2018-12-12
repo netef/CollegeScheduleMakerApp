@@ -324,6 +324,7 @@ public class Model extends Activity implements IModel {
 
     @Override
     public ArrayList<ICourse> getImpossibleCourses() {// union of two array list
+
         Map<Integer, Course> impossibleCoursesNew = new HashMap();
         for (Course iCourse : impossibleCoursesByCourseTiming) {
             impossibleCoursesNew.put(iCourse.getCourseCode(), iCourse);
