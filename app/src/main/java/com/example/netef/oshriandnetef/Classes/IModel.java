@@ -34,6 +34,8 @@ public interface IModel {
 
     void removeShowsByHour(IHour iHour);
 
+    void deleteSchedule();
+
     void addPossibleShowsByHour(IHour iHour);
 
 

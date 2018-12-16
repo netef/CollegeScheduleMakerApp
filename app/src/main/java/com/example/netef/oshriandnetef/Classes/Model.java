@@ -21,6 +21,7 @@ public class Model extends Activity implements IModel {
 
     private ArrayList<Controller> listeners = new ArrayList<>();
     private AllCourses allCourses = new AllCourses();
+
     private Schedule schedule = new Schedule();
     private ArrayList<Course> impossibleCoursesByCourseTiming = new ArrayList<>();
     private HashMap<Integer, Course> impossibleCoursesByUserTiming = new HashMap();
@@ -353,6 +354,17 @@ public class Model extends Activity implements IModel {
         // System.out.println();
         // System.out.println(impossibleCoursesByUserTiming);
         return ret;
+    }
+
+    @Override
+    public void deleteSchedule() {
+        this.schedule = new Schedule();
+        this.impossibleCoursesByCourseTiming = new ArrayList<>();
+        this.impossibleCoursesByUserTiming = new HashMap();
+        this.blockedDays = new HashSet();// nedd to by finals by
+        // number of days
+        this.blockedHours = new HashMap();//HashMap <days,HashSet<hours>>
+        invokeListeners(Controller.SCHEDULE_DESTROY_MODEL);
     }
 
     @Override

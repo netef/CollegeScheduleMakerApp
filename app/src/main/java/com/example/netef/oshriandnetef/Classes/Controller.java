@@ -38,6 +38,8 @@ public class Controller implements IController {
     public static final String NEVER_CREATE_COURSE_VIEWER ="NEVER CREATE COURSE";
     public static final String COURSE_CODE_NOT_AN_INTEGER="COURSE_CODE_NOT_AN_INTEGEr";
     public static final String MATCHING_SLOTS_BY_HOURS_ERROR="MATCHING_SLOTS_BY_HOURS_ERROr";
+    public static final String SCHEDULE_DESTROY_VIEWER="SCHEDULE_DESTROY_VIEWER";
+    public static final String SCHEDULE_DESTROY_MODEL="SCHEDULE_DESTROY_MODEL";
 
     private IView viewer;
     private ArrayList<IView> viewers;
@@ -174,6 +176,10 @@ public class Controller implements IController {
             ICourse course=model.lastCratedCourse();
             viewer.createNewShowPane(course.getCourseCode(),course.getCourseName());
         }
+        else if(e.getMsg().equals(SCHEDULE_DESTROY_VIEWER)){
+        model.deleteSchedule();
+        }
+
     }
 
 

@@ -61,11 +61,20 @@ public class Schedule extends AppCompatActivity
         private NavigationView navigationView;
 
         @Override
+        protected void onDestroy() {
+            super.onDestroy();
+            MainActivity.controller.invokeConroller(Controller.SCHEDULE_DESTROY_VIEWER,this);
+            //remove class from controller viewers collection
+            MainActivity.controller.removeViewer(this);
+        }
+        @Override
         protected void onCreate(Bundle savedInstanceState) {
             super.onCreate(savedInstanceState);
             setContentView(R.layout.activity_schedule);
             Toolbar toolbar = findViewById(R.id.toolbar);
             setSupportActionBar(toolbar);
+            //write the class as viewer at controller
+            MainActivity.controller.addViewer(this);
 
 
             //Changes are made in activity_Schedule_drawer
@@ -186,8 +195,7 @@ public class Schedule extends AppCompatActivity
             wednesday.setBackgroundColor(Color.TRANSPARENT);
             thursday.setBackgroundColor(Color.TRANSPARENT);
             friday.setBackgroundColor(Color.TRANSPARENT);
-
-
+            space.setMinimumHeight(180);
             sunday.setTextSize(20);
             monday.setTextSize(20);
             tuesday.setTextSize(20);
@@ -293,19 +301,21 @@ public class Schedule extends AppCompatActivity
             }
             //CHECK ALL impossible Courses
             for (CourseCheckBox course : coursesCheckboxes) {
+                //if the course isnt impossible
                 if (mapOfCourses.get(course.getCourseCode()) == null) {
                     course.getMenuItem().setVisible(true);
                 } else {
-                    for (Integer showCodeFX : course.getShowCodes()) {
-                        if (mapOfCourses.get(course.getCourseCode()).getShowCodes().contains(showCodeFX)) {
+                   int  showCodeFX=course.getShowCode();
 
-                            if (course.isSelected() == false) {
-                                course.getMenuItem().setVisible(false);
-                            } else
+                        if (mapOfCourses.get(course.getCourseCode()).getShowCodes().contains(showCodeFX)) {
+                            //if course selected its impssible by user -selected
+                            if (course.isSelected() == true) {
                                 course.getMenuItem().setVisible(true);
+                            } else
+                                course.getMenuItem().setVisible(false);
                         } else
                             course.getMenuItem().setVisible(true);
-                    }
+
                 }
 
             }
@@ -424,14 +434,34 @@ public class Schedule extends AppCompatActivity
 
         @Override
         public void disableCoursesCBByHour(ArrayList<ICourse> impossibleCourses) {
-            deactiveCollorButton(buttonInvoke);
-            disableSelcetedCourseByHour(buttonInvoke);
-            clearCollorCoulmnByHour(buttonInvoke);
-            buttonInvoke.setCourseCode(DEFAULT_KEYS_DIALER);
             disableAndEnableCoursesCB(impossibleCourses);
+            deactiveCollorButton(buttonInvoke);
+            disableSelcetedCourseByHour(buttonInvoke,impossibleCourses);
+            clearCollorCoulmnByHour(buttonInvoke);
+            buttonInvoke.setCourseCode(COURSE_CODE_DEFAULT);
+
 
         }
-    private void disableSelcetedCourseByHour(ScheduleButton buttonInvoke) {
+    private void disableSelcetedCourseByHour(ScheduleButton buttonInvoke,ArrayList<ICourse> impossibleCourses) {
+            //allow to choose another show from disabled course
+        Map<Integer, ICourse> mapOfImpossibleCourses = new HashMap<Integer, ICourse>();
+        for (ICourse existCourse : impossibleCourses) {
+            mapOfImpossibleCourses.put(existCourse.getCourseCode(), existCourse);
+        }
+        for (CourseCheckBox iCourse : coursesCheckboxes) {
+                    if (buttonInvoke.getCourseCode() == iCourse.getCourseCode()) {
+                        if(mapOfImpossibleCourses.get(buttonInvoke.getCourseCode())!=null) {
+                            if (!mapOfImpossibleCourses.get(buttonInvoke.getCourseCode()).getShowCodes().contains(iCourse.getShowCode())) {
+                                iCourse.getMenuItem().setVisible(true);
+                            }
+                        }
+
+                    }
+                }
+
+
+
+        //disabled blocked course
         for (CourseCheckBox course : coursesCheckboxes) {
                 if (course.isSelected() && buttonInvoke.getCourseCode() == (course.getCourseCode())) {
                     course.setSelected(false);
@@ -440,6 +470,7 @@ public class Schedule extends AppCompatActivity
 
                 }
             }
+
 
     }
     private void clearCollorCoulmnByHour(ScheduleButton buttonInvoke) {
@@ -454,7 +485,7 @@ public class Schedule extends AppCompatActivity
                 if (scheduleButtons[i][j].isBlocked() == false) {
                     if (scheduleButtons[i][j].getCourseCode() == courseCode) {
                         scheduleButtons[i][j].getButton().getBackground().clearColorFilter();
-                        scheduleButtons[i][j].setCourseCode(DEFAULT_KEYS_DIALER);
+                        scheduleButtons[i][j].setCourseCode(COURSE_CODE_DEFAULT);
                     }
                 }
             }

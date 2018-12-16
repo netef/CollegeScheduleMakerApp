@@ -47,7 +47,7 @@ public class CourseCheckBox  implements ICourse{
 
 
     public int getShowCode() {
-        return this.courseCode;
+        return this.showCode;
     }
 
 
